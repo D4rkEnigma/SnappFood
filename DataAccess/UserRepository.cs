@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entities;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
