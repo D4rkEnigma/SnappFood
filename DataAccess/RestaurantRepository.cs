@@ -11,7 +11,7 @@ namespace DataAccess
 {
     public static class RestaurantRepository
     {
-        public static void AddUser(Restaurant restaurant)
+        public static void AddRestaurant(Restaurant restaurant)
         {
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
