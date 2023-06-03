@@ -11,21 +11,23 @@ namespace DataAccess
 {
     public static class RestaurantRepository
     {
-        public static void AddUser(User user)
+        public static void AddUser(Restaurant restaurant)
         {
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
             {
-                SqlCommand sqlCommand = new("INSERT INTO Restaurants VALUES (@RestaurantID,@Name,@Password,@Manager,@OpenTime,@CloseTime,@Address,@);", connection);
+                SqlCommand sqlCommand = new("INSERT INTO Restaurants VALUES (@RestaurantID,@Name,@Password,@Manager,@OpenTime,@CloseTime,@Address,@Balance);", connection);
                 sqlCommand.Parameters.AddRange(new[]
                 {
 
-                       new SqlParameter("@UserID", user.UserID),
-                       new SqlParameter("@Name", user.Name),
-                       new SqlParameter("@Password", user.Password),
-                       new SqlParameter("@NationalCode", user.NationalCode),
-                       new SqlParameter("@Address", user.Address),
-                       new SqlParameter("@Balance", user.Balance),
+                       new SqlParameter("@RestaurantID", restaurant.RestaurantID),
+                       new SqlParameter("@Name", restaurant.Name),
+                       new SqlParameter("@Password", restaurant.Password),
+                       new SqlParameter("@Manager", restaurant.Manager),
+                       new SqlParameter("@OpenTime", restaurant.OpenTime),
+                       new SqlParameter("@CloseTime", restaurant.CloseTime),
+                       new SqlParameter("@Address", restaurant.Address),
+                       new SqlParameter("@Balance", restaurant.Balance),
                      });
                 connection.Open();
                 sqlCommand.ExecuteNonQuery();

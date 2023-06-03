@@ -12,8 +12,8 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Password { get; set; }
         public string Manager { get; set; }
-        TimeOnly OpenTime { get; set; }
-        TimeOnly CloseTime { get; set; }
+        public TimeOnly OpenTime { get; set; }
+        public TimeOnly CloseTime { get; set; }
         public string Address { get; set; }
         public decimal Balance { get; set; }
 
