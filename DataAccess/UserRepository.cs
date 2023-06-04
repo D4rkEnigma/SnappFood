@@ -10,9 +10,9 @@ using System.Xml.Linq;
 
 namespace DataAccess
 {
-    public static class UserRepository
+    public class UserRepository
     {
-        public static void AddUser(User user)
+        public void AddUser(User user)
         {
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
@@ -32,7 +32,7 @@ namespace DataAccess
                     sqlCommand.ExecuteNonQuery();           
             }
         }
-        public static void EditUserByNationalCode(int nationalCode, User updatedUser)
+        public void EditUserByNationalCode(int nationalCode, User updatedUser)
         {
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
@@ -53,7 +53,7 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
-        public static User GetUserByNationalCode(int NationalCode)
+        public User GetUserByNationalCode(int NationalCode)
         {
             User? user = null;
 
