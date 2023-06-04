@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public static class CartItemRepository
+    public class CartItemRepository
     {
     }
 }
