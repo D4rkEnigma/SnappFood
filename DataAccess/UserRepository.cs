@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entities;
+using Domain.Contracts;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Xml.Linq;
 
 namespace DataAccess
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public void AddUser(User user)
         {
@@ -53,6 +54,7 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
         public User GetUserByNationalCode(int NationalCode)
         {
             User? user = null;
@@ -74,7 +76,7 @@ namespace DataAccess
                     if (reader.Read())
                     {
                         user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
-                    nationalCode: reader.GetInt32(3),address: reader.GetString(4), balance: reader.GetDecimal(4));
+                    nationalCode: reader.GetInt32(3),address: reader.GetString(4), balance: reader.GetDecimal(5));
                     }
 
                     return user;
