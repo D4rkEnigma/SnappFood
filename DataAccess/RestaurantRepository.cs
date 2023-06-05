@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public static class RestaurantRepository
+    public class RestaurantRepository
     {
-        public static void AddRestaurant(Restaurant restaurant)
+        public void AddRestaurant(Restaurant restaurant)
         {
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
@@ -33,7 +33,7 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
-        public static List<Restaurant> GetRestaurantsList()
+        public List<Restaurant> GetRestaurantsList()
         {
             List<Restaurant> restaurants = new();
             SqlConnection connection = DatabaseConnector.Connect();
@@ -44,14 +44,14 @@ namespace DataAccess
 
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
-                    while (reader.Read())
+                    do
                     {
                         Restaurant restaurant = new(restaurantID: reader.GetString(0), name: reader.GetString(1).Trim(),
                             password: reader.GetString(2).Trim(), manager: reader.GetString(3).Trim(),
                             openTime: TimeOnly.FromDateTime(reader.GetDateTime(4)), closeTime: TimeOnly.FromDateTime(reader.GetDateTime(5)),
                             address: reader.GetString(6), balance: reader.GetDecimal(7));
                         restaurants.Add(restaurant);
-                    }
+                    } while (reader.Read());
                 }
                 return restaurants;
             }
