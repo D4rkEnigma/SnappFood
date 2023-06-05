@@ -2,11 +2,12 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
 import * as Yup from "yup";
 
-const UserSignupSchema = Yup.object().shape({
-  firstName: Yup.string().required("نام الزامی است"),
-  lastName: Yup.string().required("نام خانوادگی الزامی است"),
-  nationalCode: Yup.string().required("کد ملی الزامی است"),
+const RestaurantSignupSchema = Yup.object().shape({
+  restaurantName: Yup.string().required("نام الزامی است"),
+  ownerName: Yup.string().required("نام خانوادگی الزامی است"),
   address: Yup.string().required("آدرس الزامی است"),
+  workHoursFrom: Yup.string().required("شروع ساعت کاری الزامی است"),
+  workHoursTo: Yup.string().required("پایان ساعت کاری الزامی است"),
   password: Yup.string()
     .required("رمز عبور الزامی است")
     .min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد"),
@@ -16,19 +17,20 @@ const UserSignupSchema = Yup.object().shape({
 });
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
-  nationalCode: "",
+  restaurantName: "",
+  ownerName: "",
   address: "",
+  workHoursFrom: "",
+  workHoursTo: "",
   password: "",
   confirmPassword: "",
 };
 
-export const UserSignupForm = () => {
+export const RestaurantSignupForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={UserSignupSchema}
+      validationSchema={RestaurantSignupSchema}
       onSubmit={async (values) => {
         console.log(values);
       }}
@@ -37,58 +39,59 @@ export const UserSignupForm = () => {
         <div className="flex flex-col gap-8 w-full">
           <div className="flex flex-col gap-2">
             <Input
-              name="firstName"
+              name="restaurantName"
               type="text"
-              placeholder="نام"
+              placeholder="نام رستوران"
             />
             <ErrorMessage
-              name="firstName"
+              name="restaurantName"
               className="text-sm text-red-500"
               component="div"
             />
           </div>
           <div className="flex flex-col gap-2">
             <Input
-              name="lastName"
+              name="ownerName"
               type="text"
-              placeholder="نام خانوادگی"
+              placeholder="نام صاحب رستوران"
             />
             <ErrorMessage
-              name="lastName"
+              name="ownerName"
               className="text-sm text-red-500"
               component="div"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Input
-              name="nationalCode"
-              type="text"
-              placeholder="کد ملی"
-            />
-            <ErrorMessage
-              name="nationalCode"
-              className="text-sm text-red-500"
-              component="div"
-            />
+            <p>ساعت کارکرد رستوران:</p>
+            <div className="flex gap-5">
+              <div className="flex flex-col gap-2">
+                <Input name="workHoursFrom" type="text" placeholder="از ساعت" />
+                <ErrorMessage
+                  name="workHoursFrom"
+                  className="text-sm text-red-500"
+                  component="div"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Input name="workHoursTo" type="text" placeholder="تا ساعت" />
+                <ErrorMessage
+                  name="workHoursTo"
+                  className="text-sm text-red-500"
+                  component="div"
+                />
+              </div>
+            </div>
           </div>
           <div className="flex flex-col gap-2">
-            <Input
+            <Input name="address" type="text" placeholder="آدرس" />
+            <ErrorMessage
               name="address"
-              type="text"
-              placeholder="آدرس"
-            />
-            <ErrorMessage
-              name="address"
               className="text-sm text-red-500"
               component="div"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Input
-              name="password"
-              type="password"
-              placeholder="رمز عبور"
-            />
+            <Input name="password" type="password" placeholder="رمز عبور" />
             <ErrorMessage
               name="password"
               className="text-sm text-red-500"
@@ -110,7 +113,7 @@ export const UserSignupForm = () => {
         </div>
         <button
           type="submit"
-          className="h-12 border border-orange-300 rounded-md px-6 text-lg text-orange-600"
+          className="w-full h-12 text-white rounded-md px-6 text-lg bg-orange-600"
         >
           ثبت نام
         </button>
