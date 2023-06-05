@@ -55,11 +55,6 @@ namespace DataAccess
             }
         }
 
-        public IEnumerable<User> GetAllUser()
-        {
-            throw new NotImplementedException();
-        }
-
         public User GetUserByNationalCode(int NationalCode)
         {
             User? user = null;
