@@ -7,13 +7,12 @@ namespace BookStore.Domain.Entities
     {
 
 
-        static readonly string _dataSource = @"DESKTOP-VC6KK1O\ENIGMA";//your server
-        static readonly string _database = "SnappFood"; //your database name
-        static readonly string _username = "sa"; //username of server to connect
-        static readonly string _password = "123"; //password
+        //static readonly string _dataSource = @"DESKTOP-56TR48K\SQLEXPRESS";//your server
+        //static readonly string _database = "SnappFood"; //your database name
+        //static readonly string _username = "sa"; //username of server to connect
+       // static readonly string _password = "123"; //password
                                                   //your connection string 
-        static readonly string connectionString = @"Data Source=" + _dataSource + ";Initial Catalog="
-                        + _database + ";Persist Security Info=True;User ID=" + _username + ";Password=" + _password;
+        static readonly string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SnappFood;Data Source=DESKTOP-56TR48K\SQLEXPRESS";
 
         public static SqlConnection Connect()
         {
