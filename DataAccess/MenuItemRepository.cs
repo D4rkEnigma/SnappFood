@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entities;
+using Domain.Contracts;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class MenuItemRepository
+    public class MenuItemRepository : IMenuItemRepository
     {
         public void AddMenuItem(MenuItem menuItem)
         {
@@ -47,7 +48,6 @@ namespace DataAccess
                 connection.Open();
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
-
                     do
                     {
                         MenuItem menuItem = new(menuItemID: reader.GetString(0), restaurantID: reader.GetString(1),

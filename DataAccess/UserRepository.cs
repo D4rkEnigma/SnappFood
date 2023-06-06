@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entities;
+using Domain.Contracts;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Xml.Linq;
 
 namespace DataAccess
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public void AddUser(User user)
         {

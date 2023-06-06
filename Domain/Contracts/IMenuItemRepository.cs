@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Contracts
 {
-    internal interface IMenuItemRepository
+    public interface IMenuItemRepository
     {
     }
 }
