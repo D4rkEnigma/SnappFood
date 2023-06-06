@@ -10,8 +10,8 @@ namespace Domain.Contracts
     public interface IUserRepository
     {
         void AddUser(User user);
-        void EditUserByNationalCode(int nationalCode, User updatedUser);
-        User GetUserByNationalCode(int NationalCode);
+        void EditUserByNationalCode(string nationalCode, User updatedUser);
+        User GetUserByNationalCode(string NationalCode);
 
     }
 }
