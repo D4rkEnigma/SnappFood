@@ -55,6 +55,7 @@ namespace DataAccess
             }
         }
         public User GetUserByNationalCode(string nationalCode)
+
         {
             User? user = null;
 
@@ -76,6 +77,7 @@ namespace DataAccess
                     {
                         user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
                     nationalCode: reader.GetString(3),address: reader.GetString(4), balance: reader.GetDecimal(4));
+
                     }
 
                     return user;
