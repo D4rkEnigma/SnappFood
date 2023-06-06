@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entities;
+using Domain.Contracts;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class CartItemRepository
+    public class CartItemRepository : ICartItemRepository
     {
         public void AddCartItem(CartItem cartItem)
         {
