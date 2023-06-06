@@ -33,7 +33,7 @@ namespace DataAccess
                     sqlCommand.ExecuteNonQuery();           
             }
         }
-        public void EditUserByNationalCode(int nationalCode, User updatedUser)
+        public void EditUserByNationalCode(string nationalCode, User updatedUser)
         {
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
@@ -54,8 +54,8 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
+        public User GetUserByNationalCode(string nationalCode)
 
-        public User GetUserByNationalCode(int NationalCode)
         {
             User? user = null;
 
@@ -67,7 +67,7 @@ namespace DataAccess
                 SqlParameter sqlParameter = new()
                 {
                     ParameterName = "NationalCode",
-                    Value = NationalCode
+                    Value = nationalCode
                 };
                 sqlCommand.Parameters.Add(sqlParameter);
 
@@ -76,7 +76,8 @@ namespace DataAccess
                     if (reader.Read())
                     {
                         user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
-                    nationalCode: reader.GetInt32(3),address: reader.GetString(4), balance: reader.GetDecimal(5));
+                    nationalCode: reader.GetString(3),address: reader.GetString(4), balance: reader.GetDecimal(4));
+
                     }
 
                     return user;
