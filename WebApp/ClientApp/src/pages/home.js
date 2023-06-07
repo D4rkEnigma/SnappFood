@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import restaurantCover from "../assets/images/restaurant-cover.jpg";
 
 export const Home = () => {
@@ -7,10 +8,11 @@ export const Home = () => {
         خروج
       </button>
       <div className="flex flex-wrap justify-center gap-6 mt-8">
-        {Array.from(Array(9)).map((_) => {
+        {Array.from(Array(9)).map((_, i) => {
           return (
-            <a
-              href="#"
+            <Link
+              key={i}
+              to={`restaurants/${1}`}
               className="rounded-md overflow-hidden basis-[250px] grow-0 shadow-lg hover:shadow-xl"
             >
               <div className="w-full aspect-[2/1]">
@@ -29,7 +31,7 @@ export const Home = () => {
                   <p>از ساعت ۱۱:۰۰ تا ۲۳:۴۵</p>
                 </div>
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>
