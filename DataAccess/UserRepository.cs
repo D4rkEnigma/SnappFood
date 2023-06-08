@@ -55,7 +55,12 @@ namespace DataAccess
             }
         }
 
-        public User GetUserByNationalCode(int NationalCode)
+        public void EditUserByNationalCode(string nationalCode, User updatedUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetUserByNationalCode(string NationalCode)
         {
             User? user = null;
 
@@ -76,13 +81,14 @@ namespace DataAccess
                     if (reader.Read())
                     {
                         user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
-                    nationalCode: reader.GetInt32(3),address: reader.GetString(4), balance: reader.GetDecimal(5));
+                    nationalCode: reader.GetString(3),address: reader.GetString(4), balance: reader.GetDecimal(5));
                     }
 
-                    return user;
+                    return user ?? null;
                 }
                 
             }
         }
+
     }
 }

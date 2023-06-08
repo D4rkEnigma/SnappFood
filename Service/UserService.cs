@@ -37,9 +37,9 @@ namespace Service
             
         }
 
-        public ServiceResult<User> LoginUser(User user) 
+        public ServiceResult<User> LoginUser(string natinalCode,string password) 
         {
-            User _user = userRrepoisitory.GetUserByNationalCode(user.NationalCode);
+            User _user = userRrepoisitory.GetUserByNationalCode(natinalCode);
             if (_user == null)
             {
                 return new ServiceResult<User>("User Not Exist")
@@ -48,7 +48,7 @@ namespace Service
 
                 };
             }
-            else if(user.Password != _user.Password) 
+            else if(password != _user.Password) 
             {
                 return new ServiceResult<User>("Password Is Incorrect")
                 {
@@ -65,7 +65,7 @@ namespace Service
             }    
         }
 
-        public ServiceResult<User> GetUser(int nationalCode)
+        public ServiceResult<User> GetUser(string nationalCode)
         {
             User user = userRrepoisitory.GetUserByNationalCode(nationalCode);
             if (user == null)
@@ -87,9 +87,6 @@ namespace Service
 
         }
 
-        public ServiceResult<IEnumerable<User>> GetAllUser()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

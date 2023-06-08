@@ -1,5 +1,7 @@
 ﻿using BookStore.Domain.Entities;
+using Domain.Contracts;
 using Domain.Entities;
+using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class RestaurantRepository
+    public class RestaurantRepository:IRestaurantRepository
     {
         public void AddRestaurant(Restaurant restaurant)
         {
@@ -44,17 +46,20 @@ namespace DataAccess
 
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
-                    do
+                    while (reader.Read())
                     {
                         Restaurant restaurant = new(restaurantID: reader.GetString(0), name: reader.GetString(1).Trim(),
-                            password: reader.GetString(2).Trim(), manager: reader.GetString(3).Trim(),
-                            openTime: TimeOnly.FromDateTime(reader.GetDateTime(4)), closeTime: TimeOnly.FromDateTime(reader.GetDateTime(5)),
-                            address: reader.GetString(6), balance: reader.GetDecimal(7));
-                        restaurants.Add(restaurant);
-                    } while (reader.Read());
+                                                    password: reader.GetString(2).Trim(), manager: reader.GetString(3).Trim(),
+                                                    openTime: TimeOnly.FromDateTime(reader.GetDateTime(4)), closeTime: TimeOnly.FromDateTime(reader.GetDateTime(5)),
+                                                    address: reader.GetString(6), balance: reader.GetDecimal(7));
+                                                    restaurants.Add(restaurant);
+                    }
+
                 }
                 return restaurants;
             }
         }
+
+
     }
 }

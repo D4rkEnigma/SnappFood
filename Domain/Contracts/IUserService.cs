@@ -10,8 +10,8 @@ namespace Domain.Contracts
 {
     public interface IUserService
     {
-        public ServiceResult<User> GetUser(int nationalCode);
-        public ServiceResult<IEnumerable<User>> GetAllUser();
+        public ServiceResult<User> GetUser(string nationalCode);
         public ServiceResult<User> RegisterUser(User user);
+        public ServiceResult<User> LoginUser(string natinalCode, string password);
     }
 }

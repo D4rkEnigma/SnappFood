@@ -12,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IRestaurantRepository, RestaurantRepository>();
+builder.Services.AddTransient<IResturantService, ResturantService>();
 
 var app = builder.Build();
 
