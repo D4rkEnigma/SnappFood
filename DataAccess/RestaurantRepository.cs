@@ -35,6 +35,12 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
+        public Restaurant GetRestaurantById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Restaurant> GetRestaurantsList()
         {
             List<Restaurant> restaurants = new();
@@ -50,7 +56,7 @@ namespace DataAccess
                     {
                         Restaurant restaurant = new(restaurantID: reader.GetString(0), name: reader.GetString(1).Trim(),
                                                     password: reader.GetString(2).Trim(), manager: reader.GetString(3).Trim(),
-                                                    openTime: TimeOnly.FromDateTime(reader.GetDateTime(4)), closeTime: TimeOnly.FromDateTime(reader.GetDateTime(5)),
+                                                    openTime: reader.GetDateTime(4), closeTime: reader.GetDateTime(5),
                                                     address: reader.GetString(6), balance: reader.GetDecimal(7));
                                                     restaurants.Add(restaurant);
                     }

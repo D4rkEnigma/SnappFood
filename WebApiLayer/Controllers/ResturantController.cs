@@ -28,21 +28,21 @@ namespace WebApiLayer.Controllers
                 return BadRequest(_resturantService.GetRestueantList().Message);
             }
         }
-        //[HttpPost("resturant-register")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public IActionResult ResturantRegister([FromBody] Restaurant resturant)
-        //{
-        //    var result = _resturantService.
-        //    if (resturant != null)
-        //    {
-        //        return Ok(_resturantService.GetRestueantList().Result);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest(_resturantService.GetRestueantList().Message);
-        //    }
-        //}
+        [HttpPost("resturant-register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult ResturantRegister([FromBody] Restaurant resturant)
+        {
+            var result = _resturantService.RegisterResturant(resturant);
+            if (result.IsSuccees)
+            {
+                return Ok(result.Result);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -52,9 +52,21 @@ namespace Service
 
         public ServiceResult<Restaurant> RegisterResturant(Restaurant restaurant)
         {
-
-            _resturantRepository.AddRestaurant(restaurant);
+            var result = new ServiceResult<Restaurant>();
+            if (restaurant == null)
+            {
+                result.IsSuccees = false;
+                result.Message = "Null Request";
+            }
+            else
+            {
+                _resturantRepository.AddRestaurant(restaurant);
+                result.IsSuccees = true;
+                result.Result = restaurant;
+                result.Message = "Successfully Register";
+            }
+            return result;
         }
     }
-    }
+    
 }
