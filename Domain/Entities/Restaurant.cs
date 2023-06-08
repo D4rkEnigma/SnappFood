@@ -12,13 +12,13 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string Password { get; set; }
         public string Manager { get; set; }
-        public TimeOnly OpenTime { get; set; }
-        public TimeOnly CloseTime { get; set; }
+        public DateTime OpenTime { get; set; }
+        public DateTime CloseTime { get; set; }
         public string Address { get; set; }
         public decimal Balance { get; set; }
 
         public Restaurant(string restaurantID, string name, string password, string manager,
-            TimeOnly openTime, TimeOnly closeTime, string address, decimal balance) 
+            DateTime openTime, DateTime closeTime, string address, decimal balance) 
         {
             RestaurantID = restaurantID;
             Name = name;
