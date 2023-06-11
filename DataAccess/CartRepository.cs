@@ -31,5 +31,9 @@ namespace DataAccess
             }
         }
 
+        public Cart GetUserCart(string nationalCode)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

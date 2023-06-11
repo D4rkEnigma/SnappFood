@@ -31,6 +31,12 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
+        public MenuItem GetMenuItemByID(string menuItemId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<MenuItem> GetMenuItemsListByRestaurantID(string id)
         {
             List<MenuItem> menuItems = new();
