@@ -10,9 +10,14 @@ builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IMenuItemRepository, MenuItemRepository>();
+builder.Services.AddTransient<ICartRepository, CartRepository>();
+builder.Services.AddTransient<ICartItemRepository, CartItemRepository>();
 builder.Services.AddTransient<IRestaurantRepository, RestaurantRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IMenuItemService, MenuItemService>();
+builder.Services.AddTransient<ICartService, CartService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IResturantService, ResturantService>();
 
 var app = builder.Build();
