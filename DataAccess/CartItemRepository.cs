@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class CartItemRepository : ICartItemRepository
+    public class CartItemRepository: ICartItemRepository
     {
         public void AddCartItem(CartItem cartItem)
         {

@@ -13,6 +13,7 @@ namespace Domain.Entities
         public decimal Price { get; set; }
         public int Count { get; set; }
         public bool IsDelivered { get; set; }
+
         public CartItem(string cartID, string menuItemID, decimal price, int count, bool isDelivered)
         {
             CartID = cartID;

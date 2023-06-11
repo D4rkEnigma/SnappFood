@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ServiceResult
 {
-    public class ServiceResult<T> where T : class 
+    public class ServiceResult<T>
     {
         public T Result { get; set; }
         public bool IsSuccees { get; set; }

@@ -38,7 +38,36 @@ namespace DataAccess
 
         public Restaurant GetRestaurantById(string id)
         {
-            throw new NotImplementedException();
+            Restaurant? restaurant = null;
+
+            SqlConnection connection = DatabaseConnector.Connect();
+            using (connection)
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new("select * from Restaurants where Name = @RestaurantID", connection);
+                SqlParameter sqlParameter = new()
+                {
+                    ParameterName = "RestaurantID",
+                    Value = id
+                };
+                sqlCommand.Parameters.Add(sqlParameter);
+                
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    
+                    if (reader.Read())
+                    {
+                              restaurant = new Restaurant (restaurantID: reader.GetString(0), name: reader.GetString(1).Trim(),
+                                                          password: reader.GetString(2).Trim(), manager: reader.GetString(3).Trim(),
+                                                          openTime: reader.GetDateTime(4), closeTime: reader.GetDateTime(5),
+                                                           address: reader.GetString(6), balance: reader.GetDecimal(7));
+                        
+                    }
+
+                    return restaurant ?? null;
+                }
+
+            }
         }
 
         public List<Restaurant> GetRestaurantsList()
@@ -66,6 +95,7 @@ namespace DataAccess
             }
         }
 
+        
 
     }
 }

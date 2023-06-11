@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Contracts
 {
-    public interface ICartItemRepository
+    public interface IMenuItemService
     {
-        public void AddCartItem(CartItem cartItem);
+        public ServiceResult<decimal> CalculateMenuItemPrice(string menuitemID);
     }
 }
