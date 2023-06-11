@@ -1,6 +1,5 @@
 ﻿using Domain.Contracts;
 using Domain.Entities;
-using Domain.Entities.Events;
 using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
@@ -10,28 +9,28 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class CartService : ICartItemRepository
+    public class CartService : ICartService
     {
         private readonly ICartItemRepository cartItemRepository;
         private readonly IUserRepository userRepository;
-        private readonly ICartItemRepository cartRepository;
+        private readonly ICartRepository cartRepository;
+        private readonly IMenuItemService menuItemService;
 
-        public CartService(ICartItemRepository _cartItemRepository,IUserRepository _userRepository,ICartItemRepository _cartRepository) 
+        public CartService(ICartItemRepository _cartItemRepository,IUserRepository _userRepository,ICartRepository _cartRepository,IMenuItemService menuItemService) 
         { 
             cartItemRepository= _cartItemRepository;
             userRepository= _userRepository;
             cartRepository = _cartRepository;
+            this.menuItemService = menuItemService;
         }
 
-        public void AddCart(Cart cart)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ServiceResult<Cart> AddMenuItemToUserCart(string userNationalCode, string menuItemId)
+        public void AddMenuItemToUserCart(string userNationalCode, string menuItemId,int count)
         {
             var user = userRepository.GetUserByNationalCode(userNationalCode);
-
+            var userCart = cartRepository.GetUserCart(user.NationalCode);
+            var menuItemPrice = menuItemService.CalculateMenuItemPrice(menuItemId).Result;
+            var cartItem = new CartItem(userCart.CartID,menuItemId,menuItemPrice,count,false);
+            cartItemRepository.AddCartItem(cartItem);
         }
 
         public void CreateCartForUser(User user)
@@ -40,9 +39,5 @@ namespace Service
             cartRepository.AddCart(userCart);           
         }
 
-        public Cart GetUserCart(string nationalCode)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

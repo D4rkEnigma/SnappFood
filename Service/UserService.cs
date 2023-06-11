@@ -12,11 +12,11 @@ namespace Service
     public class UserService : IUserService
     {
         public IUserRepository userRrepoisitory;
-        public ICartItemRepository cartcartRrepoisitory;
-        public UserService(IUserRepository userRrepoisitory, ICartItemRepository cartcartRrepoisitory)
+        public ICartService cartService;
+        public UserService(IUserRepository userRrepoisitory, ICartService cartService)
         {
             this.userRrepoisitory = userRrepoisitory;
-            this.cartcartRrepoisitory = cartcartRrepoisitory;
+            this.cartService = cartService;
         }
         public ServiceResult<User> RegisterUser(User user)
         {
@@ -37,7 +37,7 @@ namespace Service
             else
             {
                 userRrepoisitory.AddUser(user);   
-                
+                cartService.CreateCartForUser(user);
                 return new ServiceResult<User>("SuccessFully Login")
                 {
                     Result = user,

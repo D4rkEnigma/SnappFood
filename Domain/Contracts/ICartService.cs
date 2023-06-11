@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Contracts
 {
-    public interface ICartItemRepository
+    public interface ICartService
     {
 
-        public ServiceResult<Cart> AddMenuItemToUserCart(string userNationalCode,string menuItemId);
+        public void AddMenuItemToUserCart(string userNationalCode,string menuItemId, int count);
+        public void CreateCartForUser(User user);
 
     }
 }

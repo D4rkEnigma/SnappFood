@@ -1,6 +1,7 @@
 ﻿using BookStore.Domain.Entities;
 using Domain.Contracts;
 using Domain.Entities;
+using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class CartRepository:ICartItemRepository
+    public class CartRepository:ICartRepository
     {
         public void AddCart(Cart cart)
         {
@@ -30,9 +31,5 @@ namespace DataAccess
             }
         }
 
-        public Cart GetUserCart(string nationalCode)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

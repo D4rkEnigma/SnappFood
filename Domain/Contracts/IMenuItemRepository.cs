@@ -11,5 +11,6 @@ namespace Domain.Contracts
     {
         public void AddMenuItem(MenuItem menuItem);
         public List<MenuItem> GetMenuItemsListByRestaurantID(string id);
+        public MenuItem GetMenuItemByID(string menuItemId);
     }
 }
