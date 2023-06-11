@@ -12,5 +12,6 @@ namespace Domain.Contracts
         void AddRestaurant(Restaurant restaurant);
         List<Restaurant> GetRestaurantsList();
         Restaurant GetRestaurantById(string id);
+        
     }
 }

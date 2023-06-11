@@ -12,8 +12,8 @@ namespace Domain.Entities
         public string RestaurantID { get; set; }
         public string FoodName { get; set; }
         public decimal Price { get; set; }
-        public TimeOnly CookingTime { get; set; }
-        public MenuItem(string menuItemID,string restaurantID, string foodName, decimal price,TimeOnly cookingTime )
+        public DateTime CookingTime { get; set; }
+        public MenuItem(string menuItemID,string restaurantID, string foodName, decimal price, DateTime cookingTime )
         {
             MenuItemID = menuItemID;
             RestaurantID = restaurantID;

@@ -12,9 +12,11 @@ namespace Service
     public class UserService : IUserService
     {
         public IUserRepository userRrepoisitory;
-        public UserService(IUserRepository userRrepoisitory)
+        public ICartItemRepository cartcartRrepoisitory;
+        public UserService(IUserRepository userRrepoisitory, ICartItemRepository cartcartRrepoisitory)
         {
-            this.userRrepoisitory = userRrepoisitory;   
+            this.userRrepoisitory = userRrepoisitory;
+            this.cartcartRrepoisitory = cartcartRrepoisitory;
         }
         public ServiceResult<User> RegisterUser(User user)
         {
@@ -25,9 +27,17 @@ namespace Service
                     IsSuccees = false,
                 };
             }
+            else if(userRrepoisitory.GetUserByNationalCode(user.NationalCode) != null) 
+            {
+                return new ServiceResult<User>("This User Already Exist")
+                {
+                    IsSuccees = false,
+                };
+            }
             else
             {
-                userRrepoisitory.AddUser(user);
+                userRrepoisitory.AddUser(user);   
+                
                 return new ServiceResult<User>("SuccessFully Login")
                 {
                     Result = user,

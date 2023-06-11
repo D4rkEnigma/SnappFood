@@ -14,6 +14,9 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IRestaurantRepository, RestaurantRepository>();
 builder.Services.AddTransient<IResturantService, ResturantService>();
+builder.Services.AddTransient<IMenuItemRepository, MenuItemRepository>();
+
+
 
 var app = builder.Build();
 

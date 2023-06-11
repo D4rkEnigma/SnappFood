@@ -13,5 +13,6 @@ namespace Domain.Contracts
         public ServiceResult<IEnumerable<Restaurant>> GetRestueantList();
         public ServiceResult<Restaurant> GetRestueantById(string id);
         public ServiceResult<Restaurant> RegisterResturant(Restaurant restaurant);
+        public ServiceResult<IEnumerable<MenuItem>> GetResturantMenu(string resturantId);
     }
 }

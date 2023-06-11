@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Contracts
+namespace Service
 {
-    internal class ICartRepository
+    internal class MenuItemService
     {
     }
 }

@@ -17,7 +17,7 @@ namespace WebApiLayer.Controllers
         [HttpGet("resturants")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetAllResturant() 
+        public ActionResult<IEnumerable<Restaurant>> GetAllResturant() 
         { 
             if (_resturantService.GetRestueantList().IsSuccees)
             {
@@ -31,7 +31,7 @@ namespace WebApiLayer.Controllers
         [HttpPost("resturant-register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult ResturantRegister([FromBody] Restaurant resturant)
+        public ActionResult<Restaurant> ResturantRegister([FromBody] Restaurant resturant)
         {
             var result = _resturantService.RegisterResturant(resturant);
             if (result.IsSuccees)
@@ -47,7 +47,7 @@ namespace WebApiLayer.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetResturant(string id)
+        public ActionResult<Restaurant> GetResturant(string id)
         {
             var resturant = _resturantService.GetRestueantById(id);
             if (resturant.IsSuccees)
@@ -60,5 +60,21 @@ namespace WebApiLayer.Controllers
             }
         }
 
+        [HttpGet("{id}/get-menu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<IEnumerable<MenuItem>> GetRestaurantMenu(string id) 
+        {
+            var resturantMenu = _resturantService.GetResturantMenu(id);
+            if (resturantMenu.IsSuccees)
+            {
+                return Ok(resturantMenu.Result);
+            }
+            else
+            {
+                return BadRequest(resturantMenu?.Message);
+            }
+        }
+        
     }
 }

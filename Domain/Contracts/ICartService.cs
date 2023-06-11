@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Domain.Contracts
 {
     public interface ICartItemRepository
     {
-        public void AddCartItem(CartItem cartItem);
+
+        public ServiceResult<Cart> AddMenuItemToUserCart(string userNationalCode,string menuItemId);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Contracts
 {
-    internal interface IMenuItemRepository
+    public interface IMenuItemRepository
     {
+        public void AddMenuItem(MenuItem menuItem);
+        public List<MenuItem> GetMenuItemsListByRestaurantID(string id);
     }
 }
