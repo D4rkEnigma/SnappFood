@@ -49,6 +49,8 @@ namespace DataAccess
                 using (SqlDataReader reader = sqlCommand.ExecuteReader())
                 {
                     while (reader.Read())
+
+                    
                     {
                         MenuItem menuItem = new(menuItemID: reader.GetString(0), restaurantID: reader.GetString(1),
                         foodName: reader.GetString(2).Trim(), price: reader.GetDecimal(3),
