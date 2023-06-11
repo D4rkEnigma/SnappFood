@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import restaurantCover from "../assets/images/restaurant-cover.jpg";
+import { logoutUser } from "../data/logout-user";
 
 export const Home = () => {
   return (
     <div className="min-h-full w-full max-w-5xl p-10 flex flex-col mx-auto">
-      <button className="text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md self-start">
+      <button onClick={() => logoutUser()} className="text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md self-start">
         خروج
       </button>
       <div className="flex flex-wrap justify-center gap-6 mt-8">

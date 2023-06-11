@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import foodCover from "../assets/images/food-cover.jpg";
 import { FiPlusCircle } from "react-icons/fi";
+import { logoutUser } from "../data/logout-user";
 
 export const Restaurant = () => {
   const { restaurantId } = useParams();
 
   return (
     <div className="min-h-full w-full max-w-5xl p-10 flex flex-col mx-auto">
-      <button className="text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md self-start">
+      <button onClick={() => logoutUser()} className="text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md self-start">
         خروج
       </button>
       <div className="grid grid-cols-2 gap-6 mt-8">

@@ -1,6 +1,7 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
 import * as Yup from "yup";
+import { signupUser } from "../../data/signup-user";
 
 const UserSignupSchema = Yup.object().shape({
   firstName: Yup.string().required("نام الزامی است"),
@@ -30,7 +31,8 @@ export const UserSignupForm = () => {
       initialValues={initialValues}
       validationSchema={UserSignupSchema}
       onSubmit={async (values) => {
-        console.log(values);
+        await signupUser(values);
+        window.location.replace("/");
       }}
     >
       <Form className="flex flex-col items-center gap-10 w-full">
