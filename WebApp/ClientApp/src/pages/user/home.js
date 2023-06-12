@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import restaurantCover from "../assets/images/restaurant-cover.jpg";
-import { logoutUser } from "../data/logout-user";
+import restaurantCover from "../../assets/images/restaurant-cover.jpg";
+import { logoutUser } from "../../data/logout-user";
 
 export const Home = () => {
   return (

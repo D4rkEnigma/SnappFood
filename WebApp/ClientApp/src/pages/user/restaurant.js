@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import foodCover from "../assets/images/food-cover.jpg";
+import foodCover from "../../assets/images/food-cover.jpg";
 import { FiPlusCircle } from "react-icons/fi";
-import { logoutUser } from "../data/logout-user";
-import { CartButton } from "../components/cart-button";
-import { useCartStore } from "../store/useCartStore";
+import { logoutUser } from "../../data/logout-user";
+import { CartButton } from "../../components/cart-button";
+import { useCartStore } from "../../store/useCartStore";
 
 export const Restaurant = () => {
   const { restaurantId } = useParams();
