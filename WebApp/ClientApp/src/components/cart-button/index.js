@@ -1,17 +1,16 @@
 import { Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { FiMinusCircle, FiPlusCircle, FiShoppingCart } from "react-icons/fi";
 import { useCartStore } from "../../store/useCartStore";
 
 export const CartButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const store = useCartStore((store) => store);
-  const { cart, addToCart, removeFromCart } = store;
+  const { cart, addToCart, removeFromCart, isCartOpen, toggleCart } = store;
 
   return (
     <>
       <button
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={() => toggleCart()}
         className="bg-orange-600 rounded-md px-4 py-1"
       >
         <FiShoppingCart strokeWidth={1.5} color="white" size={24} />
@@ -24,7 +23,7 @@ export const CartButton = () => {
         leave="ease-in duration-200"
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-80"
-        show={isOpen}
+        show={isCartOpen}
       >
         <div className="fixed top-0 bottom-0 h-full w-80 left-0 overflow-y-auto">
           <div className="min-h-full pt-10 border-r border-r-gray-200">
@@ -52,7 +51,7 @@ export const CartButton = () => {
                 ))}
               </div>
             ) : (
-              <div>سبد خرید شما خالیست!</div>
+              <div className="p-10">سبد خرید شما خالیست!</div>
             )}
           </div>
         </div>
