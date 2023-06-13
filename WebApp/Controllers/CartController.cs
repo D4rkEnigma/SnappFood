@@ -6,5 +6,6 @@ namespace WebApiLayer.Controllers
     [Route("api/[controller]")]
     public class CartController
     {
+        [HttpPost]
     }
 }
