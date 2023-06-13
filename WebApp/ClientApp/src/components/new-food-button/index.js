@@ -27,7 +27,7 @@ export const NewFoodButton = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-xl border border-orange-400 px-8 py-5"
+        className="flex items-center gap-2 rounded-md bg-orange-600 text-white px-8 py-2"
       >
         <span className="-mt-1">
           <FiPlusSquare />

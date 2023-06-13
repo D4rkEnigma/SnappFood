@@ -53,7 +53,7 @@ const foods = [
 export const Menu = () => {
   return (
     <div className="min-h-full w-full max-w-5xl p-10 flex flex-col mx-auto">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-stretch">
         <NewFoodButton />
         <button
           onClick={() => logoutUser()}
