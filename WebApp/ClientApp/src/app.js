@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import { authRoutes } from "./routes/auth-routes";
 import { unauthRoutes } from "./routes/unauth-routes";
 import { useAuth } from "./context/auth-context";
 import "./styles/global.css";
+import { userRoutes } from "./routes/user-routes";
+import { restaurantRoutes } from "./routes/restaurant-routes";
 
 export const App = () => {
   const { user } = useAuth();
-  const appRoutes = user ? authRoutes : unauthRoutes;
+  const appRoutes = user ? user.nationalCode ? userRoutes : restaurantRoutes : unauthRoutes;
 
   return (
     <Routes>

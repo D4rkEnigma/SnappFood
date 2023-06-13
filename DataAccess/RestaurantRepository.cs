@@ -35,6 +35,31 @@ namespace DataAccess
                 sqlCommand.ExecuteNonQuery();
             }
         }
+        public void EditRestaurantByName(string restaurantName, Restaurant editedRestaurant)
+        {
+            SqlConnection connection = DatabaseConnector.Connect();
+            using (connection)
+            {
+                SqlCommand sqlCommand = new("UPDATE Restaurants SET RestaurantID = @RestaurantID, Name = @Name, Password = @Password," +
+                    " Manager = @Manager, OpenTime = @OpenTime, CloseTime = @CloseTime, Address= @Address," +
+                    " Balance = @Balance WHERE BaseRestaurantName = @BaseRestaurantName", connection);
+                sqlCommand.Parameters.AddRange(new[]
+                {
+                       new SqlParameter("@BaseRestaurantName", restaurantName),
+
+                       new SqlParameter("@RestaurantID", editedRestaurant.RestaurantID),
+                       new SqlParameter("@Name", editedRestaurant.Name),
+                       new SqlParameter("@Password", editedRestaurant.Password),
+                       new SqlParameter("@Manager", editedRestaurant.Manager),
+                       new SqlParameter("@OpenTime", editedRestaurant.OpenTime),
+                       new SqlParameter("@CloseTime", editedRestaurant.CloseTime),
+                       new SqlParameter("@Address", editedRestaurant.Address),
+                       new SqlParameter("@Balance", editedRestaurant.Balance),
+                     });
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
 
         public Restaurant GetRestaurantById(string id)
         {

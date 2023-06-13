@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,7 +35,30 @@ namespace DataAccess
 
         public MenuItem GetMenuItemByID(string menuItemId)
         {
-            throw new NotImplementedException();
+            MenuItem? menuItem = null;
+            SqlConnection connection = DatabaseConnector.Connect();
+            using (connection)
+            {
+
+                SqlCommand sqlCommand = new("SELECT * FROM MenuItems WHERE MenuItemID = @MenuItemID", connection);
+                sqlCommand.Parameters.AddRange(new[]
+{
+
+                       new SqlParameter("@MenuItemID", menuItemId)
+                });
+
+                connection.Open();
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        menuItem = new(menuItemID: reader.GetString(0), restaurantID: reader.GetString(1),
+                        foodName: reader.GetString(2).Trim(), price: reader.GetDecimal(3),
+                        cookingTime: reader.GetDateTime(4));
+                    }
+                }
+                return menuItem;
+            }
         }
 
         public List<MenuItem> GetMenuItemsListByRestaurantID(string id)

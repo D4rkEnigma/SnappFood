@@ -1,6 +1,7 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
 import * as Yup from "yup";
+import { loginUser } from "../../data/login-user";
 
 const UserLoginSchema = Yup.object().shape({
   nationalCode: Yup.string().required("کد ملی الزامی است"),
@@ -18,7 +19,8 @@ export const UserLoginForm = () => {
       initialValues={initialValues}
       validationSchema={UserLoginSchema}
       onSubmit={async (values) => {
-        console.log(values);
+        await loginUser(values);
+        window.location.replace("/");
       }}
     >
       <Form className="flex flex-col items-center gap-10 w-full">

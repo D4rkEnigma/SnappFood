@@ -1,7 +1,7 @@
-import { Home } from "../pages/home";
-import { Restaurant } from "../pages/restaurant";
+import { Home } from "../pages/user/home";
+import { Restaurant } from "../pages/user/restaurant";
 
-export const authRoutes = [
+export const userRoutes = [
   {
     index: true,
     element: <Home />
