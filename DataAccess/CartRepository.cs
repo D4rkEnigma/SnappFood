@@ -18,7 +18,7 @@ namespace DataAccess
             SqlConnection connection = DatabaseConnector.Connect();
             using (connection)
             {
-                SqlCommand sqlCommand = new("INSERT INTO Users VALUES (@CartID,@UserID,@Date);", connection);
+                SqlCommand sqlCommand = new("INSERT INTO Carts VALUES (@CartID,@UserID,@Date);", connection);
                 sqlCommand.Parameters.AddRange(new[]
                 {
 

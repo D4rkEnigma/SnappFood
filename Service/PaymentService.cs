@@ -33,7 +33,7 @@ namespace Service
                     var resturanId = _menuItemRepository.GetMenuItemByID(item.MenuItemID).RestaurantID;
                     var resturant = _restaurantRepository.GetRestaurantById(resturanId);
                     resturant.Balance += item.Price * item.Count;
-
+                    _restaurantRepository.EditRestaurantByName(resturant.Name, resturant);
                 }
                 return new ServiceResult<bool>()
                 {
