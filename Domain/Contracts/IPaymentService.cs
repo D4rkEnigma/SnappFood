@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Contracts
 {
-    public interface ICartService
+    public interface IPaymentService
     {
-
-        public ServiceResult<bool> CreateOrder(List<CartItem> orderList, string userNationalCode);
-        //public void CreateCartForUser(User user);
-
+        public ServiceResult<bool> Pay(string userNationalCode,Cart order);
     }
 }

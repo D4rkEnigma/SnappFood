@@ -19,6 +19,8 @@ builder.Services.AddTransient<IMenuItemService, MenuItemService>();
 builder.Services.AddTransient<ICartService, CartService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IResturantService, ResturantService>();
+builder.Services.AddTransient<IPaymentService, PaymentService>();
+
 
 var app = builder.Build();
 
