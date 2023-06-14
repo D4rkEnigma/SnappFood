@@ -42,7 +42,7 @@ namespace DataAccess
             {
                 SqlCommand sqlCommand = new("UPDATE Restaurants SET RestaurantID = @RestaurantID, Name = @Name, Password = @Password," +
                     " Manager = @Manager, OpenTime = @OpenTime, CloseTime = @CloseTime, Address= @Address," +
-                    " Balance = @Balance WHERE BaseRestaurantName = @BaseRestaurantName", connection);
+                    " Balance = @Balance WHERE Name = @BaseRestaurantName", connection);
                 sqlCommand.Parameters.AddRange(new[]
                 {
                        new SqlParameter("@BaseRestaurantName", restaurantName),

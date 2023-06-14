@@ -36,8 +36,7 @@ namespace Service
             }
             else
             {
-                userRrepoisitory.AddUser(user);   
-                cartService.CreateCartForUser(user);
+                userRrepoisitory.AddUser(user);                 
                 return new ServiceResult<User>("SuccessFully Login")
                 {
                     Result = user,

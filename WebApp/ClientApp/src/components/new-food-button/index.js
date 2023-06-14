@@ -6,13 +6,15 @@ import { Input } from "../form/input";
 import * as Yup from "yup";
 
 const FoodSchema = Yup.object().shape({
-  foodName: Yup.string().required("نام غذا الزامی است"),
-  foodPrice: Yup.string().required("قیمت غذا الزامی است"),
+  name: Yup.string().required("نام غذا الزامی است"),
+  price: Yup.string().required("قیمت غذا الزامی است"),
+  cookingTime: Yup.string().required("زمان آماده‌سازی غذا الزامی است"),
 });
 
 const initialValues = {
-  foodName: "",
-  foodPrice: "",
+  name: "",
+  price: "",
+  cookingTime: "",
 };
 
 export const NewFoodButton = () => {
@@ -25,7 +27,7 @@ export const NewFoodButton = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-xl border border-orange-400 px-8 py-5"
+        className="flex items-center gap-2 rounded-md bg-orange-600 text-white px-8 py-2"
       >
         <span className="-mt-1">
           <FiPlusSquare />
@@ -76,24 +78,36 @@ export const NewFoodButton = () => {
                         <div className="flex flex-col gap-8 w-full">
                           <div className="flex flex-col gap-2">
                             <Input
-                              name="foodName"
+                              name="name"
                               type="text"
                               placeholder="نام غذا"
                             />
                             <ErrorMessage
-                              name="foodName"
+                              name="name"
                               className="text-sm text-red-500"
                               component="div"
                             />
                           </div>
                           <div className="flex flex-col gap-2">
                             <Input
-                              name="foodPrice"
+                              name="price"
                               type="text"
                               placeholder="قیمت غذا"
                             />
                             <ErrorMessage
-                              name="foodPrice"
+                              name="price"
+                              className="text-sm text-red-500"
+                              component="div"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <Input
+                              name="cookingTime"
+                              type="text"
+                              placeholder="زمان آماده‌سازی غذا"
+                            />
+                            <ErrorMessage
+                              name="cookingTime"
                               className="text-sm text-red-500"
                               component="div"
                             />
