@@ -1,5 +1,7 @@
 ﻿using Domain.Contracts;
 using Domain.Entities;
+using Domain.Entities.ApiDtos;
+using Domain.Entities.WebRequestModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,6 +77,39 @@ namespace WebApiLayer.Controllers
                 return BadRequest(resturantMenu?.Message);
             }
         }
-        
+
+
+        [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Restaurant> LoginRestaurant([FromBody] ResturantLoginModel resturantLoginModel)
+        {
+            var result = _resturantService.LoginResturant(resturantLoginModel.userName, resturantLoginModel.password);
+            if(result.IsSuccees)
+            {
+                return Ok(result.Result);
+            }
+            else
+            {
+                return BadRequest(result?.Message);
+            }
+        }
+
+        [HttpPost("add-menuitem")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Restaurant> AddMenuItemForResturant([FromBody] AddMenuItemModel menuItemModel)
+        {
+            var result = _resturantService.AddMenuItem(menuItemModel);
+            if(result.IsSuccees)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(result?.Message);
+            }
+        }
+
     }
 }

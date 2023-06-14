@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.ApiDtos;
 using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace Domain.Contracts
         public ServiceResult<Restaurant> GetRestueantById(string id);
         public ServiceResult<Restaurant> RegisterResturant(Restaurant restaurant);
         public ServiceResult<IEnumerable<MenuItem>> GetResturantMenu(string resturantId);
+        public ServiceResult<Restaurant> LoginResturant(string username, string password);
+        public ServiceResult<bool> AddMenuItem(AddMenuItemModel menuItemModel);
     }
 }
