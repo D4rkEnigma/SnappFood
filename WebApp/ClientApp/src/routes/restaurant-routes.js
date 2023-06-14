@@ -1,5 +1,6 @@
 import { Home } from "../pages/restaurant/home";
 import { Menu } from "../pages/restaurant/menu";
+import { Orders } from "../pages/restaurant/orders";
 
 export const restaurantRoutes = [
   {
@@ -9,5 +10,9 @@ export const restaurantRoutes = [
   {
     path: "/menu",
     element: <Menu />
+  },
+  {
+    path: "/orders",
+    element: <Orders />
   }
 ];

@@ -19,10 +19,10 @@ export const Home = () => {
             مشاهده منو
           </Link>
           <Link
-            to="/invoice"
+            to="/orders"
             className="text-center rounded-xl border border-gray-300 p-4 hover:border-orange-300"
           >
-            مشاهده فاکتور
+            مشاهده سفارشات
           </Link>
         </div>
       </div>
