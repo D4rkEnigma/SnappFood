@@ -31,9 +31,33 @@ namespace DataAccess
             }
         }
 
-        public Cart GetUserCart(string nationalCode)
+        public Cart GetCartByCartID(string cartID)
         {
-            throw new NotImplementedException();
+            Cart? cart = null;
+
+            SqlConnection connection = DatabaseConnector.Connect();
+            using (connection)
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new("select * from Carts where CartID = @CartID", connection);
+                SqlParameter sqlParameter = new()
+                {
+                    ParameterName = "CartID",
+                    Value = cartID
+                };
+                sqlCommand.Parameters.Add(sqlParameter);
+
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        cart = new(cartID: reader.GetString(0), userID: reader.GetString(1), date: reader.GetDateTime(2));
+                    }
+
+                    return cart ?? null;
+                }
+
+            }
         }
     }
 }

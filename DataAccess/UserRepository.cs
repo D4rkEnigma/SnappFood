@@ -84,5 +84,34 @@ namespace DataAccess
             }
         }
 
+        public User GetUserByUserID(string userID)
+        {
+            User? user = null;
+
+            SqlConnection connection = DatabaseConnector.Connect();
+            using (connection)
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new("select * from Users where UserID = @UserID", connection);
+                SqlParameter sqlParameter = new()
+                {
+                    ParameterName = "UserID",
+                    Value = userID
+                };
+                sqlCommand.Parameters.Add(sqlParameter);
+
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
+                    nationalCode: reader.GetString(3), address: reader.GetString(4), balance: reader.GetDecimal(5));
+                    }
+
+                    return user ?? null;
+                }
+
+            }
+        }
     }
 }

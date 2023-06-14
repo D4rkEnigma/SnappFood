@@ -12,6 +12,6 @@ namespace Domain.Contracts
         void AddUser(User user);
         void EditUserByNationalCode(string nationalCode, User updatedUser);
         User GetUserByNationalCode(string NationalCode);
-
+        User GetUserByUserID(string userID);
     }
 }
