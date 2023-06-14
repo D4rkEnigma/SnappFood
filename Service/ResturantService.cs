@@ -15,10 +15,14 @@ namespace Service
     {
         private readonly IRestaurantRepository _resturantRepository;
         private readonly IMenuItemRepository _menuItemRepository;
-        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository) 
+        private readonly ICartItemRepository _cartItemRepository;
+        private readonly IUserRepository _userRepository;
+        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,IUserRepository userRepository) 
         {
             _resturantRepository = resturantRepository;
             _menuItemRepository = menuItemRepository;
+            _cartItemRepository = cartItemrepository;
+            _userRepository = userRepository;
         }
         public ServiceResult<IEnumerable<Restaurant>> GetRestueantList()
         {
@@ -64,6 +68,7 @@ namespace Service
             }
             else
             {
+                restaurant.RestaurantID = Guid.NewGuid().ToString();
                 _resturantRepository.AddRestaurant(restaurant);
                 result.IsSuccees = true;
                 result.Result = restaurant;
@@ -140,6 +145,15 @@ namespace Service
             {
                 return new ServiceResult<bool>() { IsSuccees = false, Message = "Null Request" };
 
+            }
+        }
+
+        public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
+        {
+            var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
+            foreach (var item in resturantOrders)
+            {
+                var userCart = item.CartID
             }
         }
     } 
