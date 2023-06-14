@@ -1,5 +1,6 @@
 ﻿using Domain.Contracts;
 using Domain.Entities;
+using Domain.Entities.ApiDtos;
 using Domain.ServiceResult;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,14 @@ namespace Service
     {
         private readonly IRestaurantRepository _resturantRepository;
         private readonly IMenuItemRepository _menuItemRepository;
-        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository) 
+        private readonly ICartItemRepository _cartItemRepository;
+        private readonly IUserRepository _userRepository;
+        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,IUserRepository userRepository) 
         {
             _resturantRepository = resturantRepository;
             _menuItemRepository = menuItemRepository;
+            _cartItemRepository = cartItemrepository;
+            _userRepository = userRepository;
         }
         public ServiceResult<IEnumerable<Restaurant>> GetRestueantList()
         {
@@ -63,6 +68,7 @@ namespace Service
             }
             else
             {
+                restaurant.RestaurantID = Guid.NewGuid().ToString();
                 _resturantRepository.AddRestaurant(restaurant);
                 result.IsSuccees = true;
                 result.Result = restaurant;
@@ -93,6 +99,63 @@ namespace Service
             
             
         }
-    }
+
+        public ServiceResult<Restaurant> LoginResturant(string username, string password)
+        {
+            Restaurant _restaurant = _resturantRepository.GetRestaurantById(username);
+            if (_restaurant == null)
+            {
+                return new ServiceResult<Restaurant>("Restaurant Not Exist")
+                {
+                    IsSuccees = false,
+
+                };
+            }
+            else if (password != _restaurant.Password)
+            {
+                return new ServiceResult<Restaurant>("Password Is Incorrect")
+                {
+                    IsSuccees = false,
+                };
+            }
+            else
+            {
+                return new ServiceResult<Restaurant>("Successfully login")
+                {
+                    IsSuccees = true,
+                    Result = _restaurant,
+                };
+            }
+        }
+
+        public ServiceResult<bool> AddMenuItem(AddMenuItemModel menuItemModel)
+        {
+            if (menuItemModel != null)
+            {
+                var menuItem = new MenuItem(Guid.NewGuid().ToString(),
+                menuItemModel.ResturantID,
+                menuItemModel.foodName,
+                menuItemModel.price,
+                menuItemModel.cooockingTime);
+                _menuItemRepository.AddMenuItem(menuItem);
+                return new ServiceResult<bool> { IsSuccees = true };
+
+            }
+            else
+            {
+                return new ServiceResult<bool>() { IsSuccees = false, Message = "Null Request" };
+
+            }
+        }
+
+        public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
+        {
+            var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
+            foreach (var item in resturantOrders)
+            {
+                var userCart = item.CartID
+            }
+        }
+    } 
     
 }

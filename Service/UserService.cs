@@ -36,6 +36,7 @@ namespace Service
             }
             else
             {
+                user.UserID = Guid.NewGuid().ToString();    
                 userRrepoisitory.AddUser(user);                 
                 return new ServiceResult<User>("SuccessFully Login")
                 {
