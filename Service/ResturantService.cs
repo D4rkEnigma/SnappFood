@@ -165,6 +165,7 @@ namespace Service
                 foreach (var cartGroup in groupByCartIDQuery)
                 {
                     ResturantOrderModel currentOrder = new();
+                    Console.WriteLine(_cartRepository.GetCartByCartID(cartGroup.Key).UserID);
                     currentOrder.User = _userRepository.GetUserByUserID((_cartRepository.GetCartByCartID(cartGroup.Key).UserID));
                     currentOrder.IsDelivered = false;
                     foreach (var cartItem in cartGroup)

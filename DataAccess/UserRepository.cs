@@ -75,7 +75,7 @@ namespace DataAccess
                     if (reader.Read())
                     {
                         user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
-                    nationalCode: reader.GetString(3),address: reader.GetString(4), balance: reader.GetDecimal(5));
+                    nationalCode: reader.GetString(3),address: reader.GetString(4).Trim(), balance: reader.GetDecimal(5));
                     }
 
                     return user ?? null;
@@ -105,13 +105,14 @@ namespace DataAccess
                     if (reader.Read())
                     {
                         user = new(userID: reader.GetString(0), name: reader.GetString(1).Trim(), password: reader.GetString(2).Trim(),
-                    nationalCode: reader.GetString(3), address: reader.GetString(4), balance: reader.GetDecimal(5));
+                    nationalCode: reader.GetString(3), address: reader.GetString(4).Trim(), balance: reader.GetDecimal(5));
                     }
 
                     return user ?? null;
                 }
 
             }
+        
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Service
 
         public ServiceResult<bool> CreateOrder(List<CartItem> orderList,string userNationalCode)
         {
-            var OrderCart = new Cart(Guid.NewGuid().ToString(), userNationalCode, DateTime.Now);
+            var OrderCart = new Cart(Guid.NewGuid().ToString(), userRepository.GetUserByNationalCode(userNationalCode).UserID, DateTime.Now);
             foreach (var item in orderList)
             {
                 OrderCart.Items.Add(item);
