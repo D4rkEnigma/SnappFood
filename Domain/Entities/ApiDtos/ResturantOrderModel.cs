@@ -11,5 +11,9 @@ namespace Domain.Entities.ApiDtos
         public List<OrderedItemModel> OrderList { get; set; }
         public User User { get; set; }
         public bool IsDelivered { get; set; }
+        public ResturantOrderModel()
+        {
+            OrderList = new();
+        }
     }
 }
