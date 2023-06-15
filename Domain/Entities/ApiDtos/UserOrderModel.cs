@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.WebRequestModels
 {
-    public class RegisterOrderModel
+    public class UserOrderModel
     {
         public List<CartItem> OrderItem { get; set; }
         public string userNationalCode { get; set; }

@@ -77,6 +77,21 @@ namespace WebApiLayer.Controllers
                 return BadRequest(resturantMenu?.Message);
             }
         }
+        [HttpGet("{id}/get-restaurant-orders")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<IEnumerable<ResturantOrderModel>> GetResturantOrdersByRestaurantID(string id)
+        {
+            var resturantMenu = _resturantService.GetResturantOrdersByRestaurantID(id);
+            if (resturantMenu.IsSuccees)
+            {
+                return Ok(resturantMenu.Result);
+            }
+            else
+            {
+                return BadRequest(resturantMenu?.Message);
+            }
+        }
 
 
         [HttpPost("login")]

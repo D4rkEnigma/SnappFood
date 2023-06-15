@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.ApiDtos
 {
-    public class ResturantOredrModel
+    public class ResturantOrderModel
     {
-        public List<OrderModel> OrderList { get; set; }
+        public List<OrderedItemModel> OrderList { get; set; }
         public User User { get; set; }
         public bool IsDelivered { get; set; }
     }

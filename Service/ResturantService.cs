@@ -16,13 +16,16 @@ namespace Service
         private readonly IRestaurantRepository _resturantRepository;
         private readonly IMenuItemRepository _menuItemRepository;
         private readonly ICartItemRepository _cartItemRepository;
+        private readonly ICartRepository _cartRepository;
         private readonly IUserRepository _userRepository;
-        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,IUserRepository userRepository) 
+        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,
+            IUserRepository userRepository, ICartRepository cartRepository) 
         {
             _resturantRepository = resturantRepository;
             _menuItemRepository = menuItemRepository;
             _cartItemRepository = cartItemrepository;
             _userRepository = userRepository;
+            _cartRepository = cartRepository;
         }
         public ServiceResult<IEnumerable<Restaurant>> GetRestueantList()
         {
@@ -147,15 +150,33 @@ namespace Service
 
             }
         }
+        //this method is not optimized and should be done in DB
+        public ServiceResult<IEnumerable<ResturantOrderModel>> GetResturantOrdersByRestaurantID(string restaurantID)
+        {
+            List<CartItem> cartItems = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(restaurantID);
 
-        //public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
-        //{
-        //    var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
-        //    foreach (var item in resturantOrders)
-        //    {
-        //        var userCart = item.CartID
-        //    }
-        //}
+            var groupByCartIDQuery =
+                from cartItem in cartItems
+                group cartItem by cartItem.CartID into newCartGroup
+                select newCartGroup;
+            List<ResturantOrderModel> restauranOrders = new();
+            foreach (var cartGroup in groupByCartIDQuery)
+            {
+                ResturantOrderModel currentOrder = new();
+                currentOrder.User = _userRepository.GetUserByUserID((_cartRepository.GetCartByCartID(cartGroup.Key).UserID));
+                currentOrder.IsDelivered = false;
+                foreach (var cartItem in cartGroup)
+                {                  
+                    currentOrder.OrderList.Add(new OrderedItemModel (_menuItemRepository.GetMenuItemByID(cartItem.MenuItemID),cartItem.Count,cartItem.Price));
+                }
+                restauranOrders.Add(currentOrder);
+            }
+            return new ServiceResult<IEnumerable<ResturantOrderModel>>("Orders retrived")
+            {
+                IsSuccees = true,
+                Result = restauranOrders
+            };
+        }
     } 
     
 }

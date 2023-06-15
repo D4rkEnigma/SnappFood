@@ -11,11 +11,12 @@ namespace Domain.Contracts
 {
     public interface IResturantService
     {
-        public ServiceResult<IEnumerable<Restaurant>> GetRestueantList();
-        public ServiceResult<Restaurant> GetRestueantById(string id);
-        public ServiceResult<Restaurant> RegisterResturant(Restaurant restaurant);
-        public ServiceResult<IEnumerable<MenuItem>> GetResturantMenu(string resturantId);
-        public ServiceResult<Restaurant> LoginResturant(string username, string password);
-        public ServiceResult<bool> AddMenuItem(AddMenuItemModel menuItemModel);
+        ServiceResult<IEnumerable<Restaurant>> GetRestueantList();
+        ServiceResult<Restaurant> GetRestueantById(string id);
+        ServiceResult<Restaurant> RegisterResturant(Restaurant restaurant);
+        ServiceResult<IEnumerable<MenuItem>> GetResturantMenu(string resturantId);
+        ServiceResult<Restaurant> LoginResturant(string username, string password);
+        ServiceResult<bool> AddMenuItem(AddMenuItemModel menuItemModel);
+        ServiceResult<IEnumerable<ResturantOrderModel>> GetResturantOrdersByRestaurantID(string restaurantID);
     }
 }
