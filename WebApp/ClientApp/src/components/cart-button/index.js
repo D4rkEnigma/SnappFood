@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { FiMinusCircle, FiPlusCircle, FiShoppingCart } from "react-icons/fi";
+import { FiMinusCircle, FiPlusCircle, FiShoppingCart, FiX } from "react-icons/fi";
 import { useCartStore } from "../../store/useCartStore";
 import { addUserOrder } from "../../data/add-user-order";
 import { useAuth } from "../../context/auth-context";
@@ -30,8 +30,11 @@ export const CartButton = () => {
         leaveTo="-translate-x-80"
         show={isCartOpen}
       >
-        <div className="fixed top-0 bottom-0 h-full w-80 left-0 overflow-y-auto">
-          <div className="min-h-full pt-10 border-r border-r-gray-200">
+        <div className="fixed top-0 bottom-0 h-full w-80 left-0 bg-white overflow-y-auto">
+          <div className="px-4 pt-2">
+            <button onClick={() => toggleCart()}><FiX size={24} /></button>
+          </div>
+          <div className="min-h-full border-r border-r-gray-200">
             {cart.length > 0 ? (
               <div>
                 <div>
