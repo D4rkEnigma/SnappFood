@@ -92,7 +92,21 @@ namespace WebApiLayer.Controllers
                 return BadRequest(resturantMenu?.Message);
             }
         }
-
+        [HttpPost("order-delivered")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Restaurant> CartItemsDeliveryByCartID([FromBody] string cartID)
+        {
+            var result = _resturantService.MarkCartItemsDeliveredByCartID(cartID);
+            if (result.IsSuccees)
+            {
+                return Ok(result.Result);
+            }
+            else
+            {
+                return BadRequest(result?.Message);
+            }
+        }
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]

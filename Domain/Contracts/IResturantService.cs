@@ -18,5 +18,6 @@ namespace Domain.Contracts
         ServiceResult<Restaurant> LoginResturant(string username, string password);
         ServiceResult<bool> AddMenuItem(AddMenuItemModel menuItemModel);
         ServiceResult<IEnumerable<ResturantOrderModel>> GetResturantOrdersByRestaurantID(string restaurantID);
+        ServiceResult<bool> MarkCartItemsDeliveredByCartID(string cartID);
     }
 }
