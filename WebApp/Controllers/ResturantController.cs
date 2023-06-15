@@ -110,12 +110,12 @@ namespace WebApiLayer.Controllers
                 return BadRequest(result?.Message);
             }
         }
-        [HttpGet("show-resturant-orders/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<IEnumerable<ResturantOredrModel>> ShowResturantOrders(string resturantID)
-        {
-            result
-        }
+        //[HttpGet("show-resturant-orders/{id}")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //public ActionResult<IEnumerable<ResturantOredrModel>> ShowResturantOrders(string resturantID)
+        //{
+        //    result;
+        //}
     }
 }

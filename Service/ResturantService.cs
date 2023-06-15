@@ -148,14 +148,14 @@ namespace Service
             }
         }
 
-        public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
-        {
-            var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
-            foreach (var item in resturantOrders)
-            {
-                var userCart = item.CartID
-            }
-        }
+        //public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
+        //{
+        //    var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
+        //    foreach (var item in resturantOrders)
+        //    {
+        //        var userCart = item.CartID
+        //    }
+        //}
     } 
     
 }
