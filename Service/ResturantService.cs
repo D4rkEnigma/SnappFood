@@ -160,16 +160,25 @@ namespace Service
                 group cartItem by cartItem.CartID into newCartGroup
                 select newCartGroup;
             List<ResturantOrderModel> restauranOrders = new();
-            foreach (var cartGroup in groupByCartIDQuery)
+            try
             {
-                ResturantOrderModel currentOrder = new();
-                currentOrder.User = _userRepository.GetUserByUserID((_cartRepository.GetCartByCartID(cartGroup.Key).UserID));
-                currentOrder.IsDelivered = false;
-                foreach (var cartItem in cartGroup)
-                {                  
-                    currentOrder.OrderList.Add(new OrderedItemModel (_menuItemRepository.GetMenuItemByID(cartItem.MenuItemID),cartItem.Count,cartItem.Price));
+                foreach (var cartGroup in groupByCartIDQuery)
+                {
+                    ResturantOrderModel currentOrder = new();
+                    currentOrder.User = _userRepository.GetUserByUserID((_cartRepository.GetCartByCartID(cartGroup.Key).UserID));
+                    currentOrder.IsDelivered = false;
+                    foreach (var cartItem in cartGroup)
+                    {
+                        currentOrder.OrderList.Add(new OrderedItemModel(_menuItemRepository.GetMenuItemByID(cartItem.MenuItemID), cartItem.Count, cartItem.Price));
+                    }
+                    restauranOrders.Add(currentOrder);
                 }
-                restauranOrders.Add(currentOrder);
+            }catch (Exception ex)
+            {
+                return new ServiceResult<IEnumerable<ResturantOrderModel>>("Orders not retreived")
+                {
+                    IsSuccees = false,
+                };
             }
             return new ServiceResult<IEnumerable<ResturantOrderModel>>("Orders retrived")
             {
