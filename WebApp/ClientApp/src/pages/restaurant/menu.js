@@ -1,56 +1,20 @@
 import { logoutUser } from "../../data/logout-user";
 import { NewFoodButton } from "../../components/new-food-button";
-import { EditFoodButton } from "../../components/edit-food-button";
-
-const foods = [
-  {
-    name: "پیتزا ویوا چیکن",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "پیتزا کاپری چیوسا",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "پیتزا میت لاورز چهار نفره",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "مینی مگا(پیتزا فورسیزن)",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "باکس برگر",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "کویین برگر",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "کینگ برگر",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "پیتزا دونر",
-    price: "269000",
-    cookingTime: "30",
-  },
-  {
-    name: "ساندویچ چیز استیک",
-    price: "269000",
-    cookingTime: "30",
-  },
-];
+import { useQuery } from "react-query";
+import { getRestaurantMenu } from "../../data/get-restaurant-menu";
+import { useAuth } from "../../context/auth-context";
+import { DateTime } from "luxon";
 
 export const Menu = () => {
+  const { user } = useAuth();
+  const { name: restaurantName } = user;
+  const { data: foods, isLoading } = useQuery(
+    ["restaurant-menu", { restaurantName }],
+    () => getRestaurantMenu({ restaurantName })
+  );
+
+  if (isLoading) return null;
+
   return (
     <div className="min-h-full w-full max-w-5xl p-10 flex flex-col mx-auto">
       <div className="flex justify-between items-stretch">
@@ -72,19 +36,15 @@ export const Menu = () => {
               <p className="flex-1">نام</p>
               <p className="flex-1 text-center">قیمت</p>
               <p className="flex-1 text-center">زمان آماده سازی</p>
-              <p className="flex-1 text-left">ویرایش</p>
             </div>
             {foods.map((food, i) => (
               <div
                 key={i}
                 className="flex justify-between gap-8 rounded-xl border border-gray-200 shadow-md px-8 py-5"
               >
-                <p className="flex-1 truncate">{food.name}</p>
+                <p className="flex-1 truncate">{food.foodName}</p>
                 <p className="flex-1 text-center">{food.price} تومان</p>
-                <p className="flex-1 text-center">{food.cookingTime} دقیقه</p>
-                <div className="flex-1 text-left pl-3">
-                  <EditFoodButton food={food} />
-                </div>
+                <p className="flex-1 text-center">{DateTime.fromISO(food.cookingTime).setLocale('fa').toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
               </div>
             ))}
           </div>

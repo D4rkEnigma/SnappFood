@@ -4,6 +4,9 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { Dialog, Transition } from "@headlessui/react";
 import { Input } from "../form/input";
 import * as Yup from "yup";
+import { useMutation, useQueryClient } from "react-query";
+import { addMenuItem } from "../../data/add-menu-item";
+import { useAuth } from "../../context/auth-context";
 
 const FoodSchema = Yup.object().shape({
   name: Yup.string().required("نام غذا الزامی است"),
@@ -18,7 +21,20 @@ const initialValues = {
 };
 
 export const NewFoodButton = () => {
+  const { user } = useAuth();
+  const { name: restaurantName } = user;
   const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const addMenuItemMutation = useMutation(
+    ({ foodName, price, cookingTime, restaurantName }) => {
+      return addMenuItem({ foodName, price, cookingTime, restaurantName });
+    }, {
+      onSuccess() {
+        queryClient.invalidateQueries(["restaurant-menu"]);
+      }
+    }
+  );
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -71,7 +87,13 @@ export const NewFoodButton = () => {
                       initialValues={initialValues}
                       validationSchema={FoodSchema}
                       onSubmit={async (values) => {
-                        console.log(values);
+                        addMenuItemMutation.mutate({
+                          foodName: values.name,
+                          price: values.price,
+                          cookingTime: values.cookingTime,
+                          restaurantName,
+                        });
+                        closeModal();
                       }}
                     >
                       <Form className="flex flex-col items-center gap-10 w-full">

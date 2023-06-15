@@ -1,6 +1,6 @@
 import { axios } from "../lib/axios"
 
-export const signupUser = ({firstName, lastName, nationalCode, address, password}) => {
+export const signupUser = async ({firstName, lastName, nationalCode, address, password}) => {
     return axios.post("/User/registeruser", {
         "userID": (Math.random() + 1).toString(36).substring(7),
         "nationalCode": nationalCode,

@@ -5,17 +5,27 @@ import { App } from "./app";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/auth-context";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+});
 
 root.render(
-  <AuthProvider>
-    <BrowserRouter basename={baseUrl}>
-      <App />
-    </BrowserRouter>
-  </AuthProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <BrowserRouter basename={baseUrl}>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
+  </QueryClientProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

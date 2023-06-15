@@ -1,6 +1,7 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
 import * as Yup from "yup";
+import { loginRestaurant } from "../../data/login-restaurant";
 
 const RestaurantLoginSchema = Yup.object().shape({
   restaurantName: Yup.string().required("نام الزامی است"),
@@ -18,7 +19,8 @@ export const RestaurantLoginForm = () => {
       initialValues={initialValues}
       validationSchema={RestaurantLoginSchema}
       onSubmit={async (values) => {
-        console.log(values);
+        await loginRestaurant(values);
+        window.location.replace("/");
       }}
     >
       <Form className="flex flex-col items-center gap-10 w-full">

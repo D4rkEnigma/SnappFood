@@ -1,13 +1,14 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
 import * as Yup from "yup";
+import { signupRestaurant } from "../../data/signup-restaurant";
 
 const RestaurantSignupSchema = Yup.object().shape({
   restaurantName: Yup.string().required("نام الزامی است"),
   ownerName: Yup.string().required("نام خانوادگی الزامی است"),
   address: Yup.string().required("آدرس الزامی است"),
-  workHoursFrom: Yup.string().required("شروع ساعت کاری الزامی است"),
-  workHoursTo: Yup.string().required("پایان ساعت کاری الزامی است"),
+  openTime: Yup.string().required("شروع ساعت کاری الزامی است"),
+  closeTime: Yup.string().required("پایان ساعت کاری الزامی است"),
   password: Yup.string()
     .required("رمز عبور الزامی است")
     .min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد"),
@@ -20,8 +21,8 @@ const initialValues = {
   restaurantName: "",
   ownerName: "",
   address: "",
-  workHoursFrom: "",
-  workHoursTo: "",
+  openTime: "",
+  closeTime: "",
   password: "",
   confirmPassword: "",
 };
@@ -32,7 +33,8 @@ export const RestaurantSignupForm = () => {
       initialValues={initialValues}
       validationSchema={RestaurantSignupSchema}
       onSubmit={async (values) => {
-        console.log(values);
+        await signupRestaurant(values);
+        window.location.replace("/");
       }}
     >
       <Form className="flex flex-col items-center gap-10 w-full">
@@ -65,17 +67,17 @@ export const RestaurantSignupForm = () => {
             <p>ساعت کارکرد رستوران:</p>
             <div className="flex gap-5">
               <div className="flex flex-col gap-2">
-                <Input name="workHoursFrom" type="text" placeholder="از ساعت" />
+                <Input name="openTime" type="text" placeholder="از ساعت" />
                 <ErrorMessage
-                  name="workHoursFrom"
+                  name="openTime"
                   className="text-sm text-red-500"
                   component="div"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Input name="workHoursTo" type="text" placeholder="تا ساعت" />
+                <Input name="closeTime" type="text" placeholder="تا ساعت" />
                 <ErrorMessage
-                  name="workHoursTo"
+                  name="closeTime"
                   className="text-sm text-red-500"
                   component="div"
                 />
