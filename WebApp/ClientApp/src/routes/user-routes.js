@@ -7,7 +7,7 @@ export const userRoutes = [
     element: <Home />
   },
   {
-    path: "restaurants/:restaurantId",
+    path: "restaurants/:restaurantName",
     element: <Restaurant />
   }
 ];

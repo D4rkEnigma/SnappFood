@@ -10,6 +10,6 @@ export const addUserOrder = async ({ userNationalCode, menuItems }) => {
   }));
   return axios.post("/Cart/register-order", {
     orderItem: items,
-    userNationalCode: userNationalCode,
+    userNationalCode: userNationalCode.trim(),
   });
 };

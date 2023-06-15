@@ -1,21 +1,18 @@
 import { useParams } from "react-router-dom";
 import { logoutUser } from "../../data/logout-user";
 import { CartButton } from "../../components/cart-button";
-import { Product } from "../../components/product";
-
-const products = [
-  { id: 1, name: "کینگ برگر", price: 269000 },
-  { id: 2, name: "کینگ برگر", price: 269000 },
-  { id: 3, name: "کینگ برگر", price: 269000 },
-  { id: 4, name: "کینگ برگر", price: 269000 },
-  { id: 5, name: "کینگ برگر", price: 269000 },
-  { id: 6, name: "کینگ برگر", price: 269000 },
-  { id: 7, name: "کینگ برگر", price: 269000 },
-  { id: 8, name: "کینگ برگر", price: 269000 },
-];
+import { MenuItem } from "../../components/menu-item";
+import { useQuery } from "react-query";
+import { getRestaurantMenu } from "../../data/get-restaurant-menu";
 
 export const Restaurant = () => {
-  const { restaurantId } = useParams();
+  const { restaurantName } = useParams();
+  const { data: menuItems, isLoading } = useQuery(
+    ["restaurant-menu", { restaurantName }],
+    () => getRestaurantMenu({ restaurantName })
+  );
+
+  if (isLoading) return null;
 
   return (
     <div className="min-h-full w-full max-w-5xl p-10 flex flex-col mx-auto">
@@ -29,8 +26,8 @@ export const Restaurant = () => {
         <CartButton />
       </div>
       <div className="grid grid-cols-2 gap-6 mt-8">
-        {products.map((product) => (
-          <Product key={product.id} product={product} />
+        {menuItems.map((menuItem) => (
+          <MenuItem key={menuItem.menuItemID} menuItem={menuItem} />
         ))}
       </div>
     </div>

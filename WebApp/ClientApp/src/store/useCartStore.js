@@ -14,11 +14,11 @@ export const useCartStore = create((set, get) => ({
   isCartOpen: INITIAL_STATE.isCartOpen,
   addToCart: (product) => {
     const cart = get().cart;
-    const cartItem = cart.find((item) => item.id === product.id);
+    const cartItem = cart.find((item) => item.menuItemID === product.menuItemID);
 
     if (cartItem) {
       const updatedCart = cart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        item.menuItemID === product.menuItemID ? { ...item, quantity: item.quantity + 1 } : item
       );
       set((state) => ({
         cart: updatedCart,
@@ -40,12 +40,12 @@ export const useCartStore = create((set, get) => ({
   removeFromCart: (product) => {
     const cart = get().cart;
     const cartItem = cart.find(
-      (item) => item.id === product.id && item.quantity > 1
+      (item) => item.menuItemID === product.menuItemID && item.quantity > 1
     );
 
     if (cartItem) {
       const updatedCart = cart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item
+        item.menuItemID === product.menuItemID ? { ...item, quantity: item.quantity - 1 } : item
       );
       set((state) => ({
         cart: updatedCart,
@@ -55,7 +55,7 @@ export const useCartStore = create((set, get) => ({
       }));
     } else {
       set((state) => ({
-        cart: state.cart.filter((item) => item.id !== product.id),
+        cart: state.cart.filter((item) => item.menuItemID !== product.menuItemID),
         totalItems: state.totalItems - 1,
         totalPrice: state.totalPrice - product.price,
         isCartOpen: true,
@@ -68,4 +68,7 @@ export const useCartStore = create((set, get) => ({
       isCartOpen: !state.isCartOpen,
     }));
   },
+  reset: () => {
+    set(INITIAL_STATE);
+  }
 }));

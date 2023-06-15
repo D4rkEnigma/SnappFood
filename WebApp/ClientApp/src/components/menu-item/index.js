@@ -3,12 +3,12 @@ import foodCover from "../../assets/images/food-cover.jpg";
 import { useCartStore } from "../../store/useCartStore";
 import clsx from "clsx";
 
-export const Product = ({ product }) => {
+export const MenuItem = ({ menuItem }) => {
   const cart = useCartStore((store) => store.cart);
   const addToCart = useCartStore((store) => store.addToCart);
   const removeFromCart = useCartStore((store) => store.removeFromCart);
   const productInCart = cart.find(
-    (prodInCart) => prodInCart.id === product.id
+    (prodInCart) => prodInCart.menuItemID === menuItem.menuItemID
   );
 
   return (
@@ -17,20 +17,20 @@ export const Product = ({ product }) => {
         <img src={foodCover} alt="" className="w-full h-full object-cover" />
       </div>
       <div className="flex flex-col justify-around">
-        <p className="text-gray-800">کینگ برگر</p>
-        <p className="text-sm text-orange-500">269,000 تومان</p>
+        <p className="text-gray-800">{menuItem.foodName}</p>
+        <p className="text-sm text-orange-500">{menuItem.price} تومان</p>
       </div>
       {productInCart ? (
         <div className="flex items-center gap-2 mr-auto self-end">
           <button
-            onClick={() => removeFromCart(product)}
+            onClick={() => removeFromCart(menuItem)}
             className="text-orange-600"
           >
             <FiMinusCircle strokeWidth={1} size={28} />
           </button>
           <p className="mt-1">{productInCart.quantity}</p>
           <button
-            onClick={() => addToCart(product)}
+            onClick={() => addToCart(menuItem)}
             className="text-orange-600"
           >
             <FiPlusCircle strokeWidth={1} size={28} />
@@ -38,7 +38,7 @@ export const Product = ({ product }) => {
         </div>
       ) : (
         <button
-          onClick={() => addToCart(product)}
+          onClick={() => addToCart(menuItem)}
           className="text-orange-600 mr-auto self-end"
         >
           <FiPlusCircle strokeWidth={1} size={32} />
