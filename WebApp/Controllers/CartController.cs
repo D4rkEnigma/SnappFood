@@ -18,7 +18,7 @@ namespace WebApiLayer.Controllers
         [Route("register-order")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<bool> RegisterOrder([FromBody] RegisterOrderModel registerOrderModel)
+        public ActionResult<bool> RegisterOrder([FromBody] UserOrderModel registerOrderModel)
         {
            var registerorderResult = _cartService.CreateOrder(registerOrderModel.OrderItem, registerOrderModel.userNationalCode);
             if (registerorderResult.Result)
