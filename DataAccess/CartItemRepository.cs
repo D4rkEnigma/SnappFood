@@ -39,7 +39,7 @@ namespace DataAccess
             {
 
                 connection.Open();
-                SqlCommand sqlCommand = new("SELECT CartItems.CartID, CartItems.MenuItemID, CartItems.Price, CartItems.Count, CartItems.IsDelivered" +
+                SqlCommand sqlCommand = new("SELECT CartItems.CartID, CartItems.MenuItemID, CartItems.Price, CartItems.Count, CartItems.IsDelivered " +
                     "FROM Carts JOIN CartItems ON Carts.CartID = CartItems.CartID JOIN MenuItems ON CartItems.MenuItemID = MenuItems.MenuItemID WHERE RestaurantID = @RestaurantID", connection);
                 SqlParameter sqlParameter = new()
                 {
