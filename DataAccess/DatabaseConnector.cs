@@ -12,7 +12,7 @@ namespace BookStore.Domain.Entities
         //static readonly string _username = "sa"; //username of server to connect
        // static readonly string _password = "123"; //password
                                                   //your connection string 
-        static readonly string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SnappFood;Data Source=DESKTOP-56TR48K\SQLEXPRESS";
+        static readonly string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SnappFood;Data Source=BROTHER-BEAR";
 
         public static SqlConnection Connect()
         {
