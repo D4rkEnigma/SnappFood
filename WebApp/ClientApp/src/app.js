@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { unauthRoutes } from "./routes/unauth-routes";
 import { useAuth } from "./context/auth-context";
+import 'react-toastify/dist/ReactToastify.css';
 import "./styles/global.css";
 import { userRoutes } from "./routes/user-routes";
 import { restaurantRoutes } from "./routes/restaurant-routes";

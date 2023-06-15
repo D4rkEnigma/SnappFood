@@ -6,6 +6,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/auth-context";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastContainer } from "react-toastify";
 
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 const rootElement = document.getElementById("root");
@@ -25,6 +26,7 @@ root.render(
         <App />
       </BrowserRouter>
     </AuthProvider>
+    <ToastContainer />
   </QueryClientProvider>
 );
 

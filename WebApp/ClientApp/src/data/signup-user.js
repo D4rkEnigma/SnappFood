@@ -6,7 +6,7 @@ export const signupUser = async ({firstName, lastName, nationalCode, address, pa
         "nationalCode": nationalCode,
         "password": password,
         "name": firstName + " " + lastName,
-        "balance": 1000000,
+        "balance": 9999999999999,
         "address": address
     }).then(res => localStorage.setItem("user", JSON.stringify(res.data)))
 }

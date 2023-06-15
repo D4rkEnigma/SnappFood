@@ -4,11 +4,13 @@ import { FiMinusCircle, FiPlusCircle, FiShoppingCart } from "react-icons/fi";
 import { useCartStore } from "../../store/useCartStore";
 import { addUserOrder } from "../../data/add-user-order";
 import { useAuth } from "../../context/auth-context";
+import { toast } from "react-toastify";
 
 export const CartButton = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const store = useCartStore((store) => store);
-  const { cart, addToCart, removeFromCart, isCartOpen, toggleCart, reset } = store;
+  const { cart, addToCart, removeFromCart, isCartOpen, toggleCart, reset } =
+    store;
 
   return (
     <>
@@ -61,10 +63,30 @@ export const CartButton = () => {
                   ))}
                 </div>
                 <div className="px-4 mt-4">
-                  <button onClick={async () => {
-                    await addUserOrder({userNationalCode: user.nationalCode, menuItems: cart});
-                    reset();
-                  }} className="w-full h-12 text-white rounded-md px-6 bg-orange-600">
+                  <button
+                    onClick={async () => {
+                      try {
+                        await addUserOrder({
+                          userNationalCode: user.nationalCode,
+                          menuItems: cart,
+                        });
+                        toast.success("سفارش با موفقیت انجام شد!", {
+                          position: toast.POSITION.BOTTOM_RIGHT,
+                          rtl: true,
+                        });
+                        reset();
+                      } catch (e) {
+                        toast.error(
+                          "خطا، نمی‌دونم والا شاید پول کافی نداری :(",
+                          {
+                            position: toast.POSITION.BOTTOM_RIGHT,
+                            rtl: true,
+                          }
+                        );
+                      }
+                    }}
+                    className="w-full h-12 text-white rounded-md px-6 bg-orange-600"
+                  >
                     نهایی کردن خرید
                   </button>
                 </div>

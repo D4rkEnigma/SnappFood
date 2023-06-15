@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "react-query";
 import { addMenuItem } from "../../data/add-menu-item";
 import { useAuth } from "../../context/auth-context";
+import { toast } from "react-toastify";
 
 const FoodSchema = Yup.object().shape({
   name: Yup.string().required("نام غذا الزامی است"),
@@ -30,6 +31,10 @@ export const NewFoodButton = () => {
       return addMenuItem({ foodName, price, cookingTime, restaurantName });
     }, {
       onSuccess() {
+        toast.success("غذا با موفقیت اضافه شد!", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          rtl: true,
+        });
         queryClient.invalidateQueries(["restaurant-menu"]);
       }
     }
