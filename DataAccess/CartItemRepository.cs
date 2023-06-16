@@ -40,7 +40,7 @@ namespace DataAccess
 
                 connection.Open();
                 SqlCommand sqlCommand = new("SELECT CartItems.CartID, CartItems.MenuItemID, CartItems.Price, CartItems.Count, CartItems.IsDelivered " +
-                    "FROM Carts JOIN CartItems ON Carts.CartID = CartItems.CartID JOIN MenuItems ON CartItems.MenuItemID = MenuItems.MenuItemID WHERE RestaurantID = @RestaurantID", connection);
+                    "FROM Carts JOIN CartItems ON Carts.CartID = CartItems.CartID JOIN MenuItems ON CartItems.MenuItemID = MenuItems.MenuItemID WHERE RestaurantID = @RestaurantID AND IsDelivered = 0", connection);
                 SqlParameter sqlParameter = new()
                 {
                     ParameterName = "RestaurantID",
@@ -57,6 +57,21 @@ namespace DataAccess
                     }
                 }
                 return cartItems;
+            }
+        }
+        public void MarkCartItemsAsDeliveredByCartID(string cartID)
+        {
+            SqlConnection connection = DatabaseConnector.Connect();
+            using (connection)
+            {
+                SqlCommand sqlCommand = new("UPDATE CartItems SET CartItems.IsDelivered = 1 FROM CartItems WHERE CartID = @BaseCartID", connection);
+
+                sqlCommand.Parameters.AddRange(new[]
+                {
+                       new SqlParameter("@BaseCartID", cartID)
+                     });
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
             }
         }
         public void EditCartItemByCartIdAndMenuItemID(string baseCartID, string baseMenuItemID, CartItem editedCartItem)

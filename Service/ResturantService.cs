@@ -18,8 +18,8 @@ namespace Service
         private readonly ICartItemRepository _cartItemRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IUserRepository _userRepository;
-        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,
-            IUserRepository userRepository, ICartRepository cartRepository) 
+        public ResturantService(IRestaurantRepository resturantRepository, IMenuItemRepository menuItemRepository, ICartItemRepository cartItemrepository,
+            IUserRepository userRepository, ICartRepository cartRepository)
         {
             _resturantRepository = resturantRepository;
             _menuItemRepository = menuItemRepository;
@@ -33,7 +33,7 @@ namespace Service
             if (_resturantRepository.GetRestaurantsList() != null)
             {
                 resturantList.Result = _resturantRepository.GetRestaurantsList();
-                resturantList.IsSuccees= true;
+                resturantList.IsSuccees = true;
             }
             else
             {
@@ -44,7 +44,7 @@ namespace Service
             return resturantList;
         }
 
-        public ServiceResult<Restaurant> GetRestueantById(string id) 
+        public ServiceResult<Restaurant> GetRestueantById(string id)
         {
             var resturant = new ServiceResult<Restaurant>();
             if (_resturantRepository.GetRestaurantById(id) != null)
@@ -82,7 +82,7 @@ namespace Service
 
         public ServiceResult<IEnumerable<MenuItem>> GetResturantMenu(string resturantId)
         {
-            if(_resturantRepository.GetRestaurantById(resturantId) != null)
+            if (_resturantRepository.GetRestaurantById(resturantId) != null)
             {
                 var result = _menuItemRepository.GetMenuItemsListByRestaurantID(resturantId);
                 return new ServiceResult<IEnumerable<MenuItem>>()
@@ -99,8 +99,8 @@ namespace Service
                     Message = "Resturant Not Found",
                 };
             }
-            
-            
+
+
         }
 
         public ServiceResult<Restaurant> LoginResturant(string username, string password)
@@ -150,6 +150,19 @@ namespace Service
 
             }
         }
+        public ServiceResult<bool> MarkCartItemsDeliveredByCartID(string cartID)
+        {
+            try
+            {
+                _cartItemRepository.MarkCartItemsAsDeliveredByCartID(cartID);
+                return new ServiceResult<bool> { IsSuccees = true, Result = true };
+
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResult<bool>() { IsSuccees = false, Message = "Bad request", Result = false };
+            }
+        }
         //this method is not optimized and should be done in DB
         public ServiceResult<IEnumerable<ResturantOrderModel>> GetResturantOrdersByRestaurantID(string restaurantID)
         {
@@ -165,6 +178,7 @@ namespace Service
                 foreach (var cartGroup in groupByCartIDQuery)
                 {
                     ResturantOrderModel currentOrder = new();
+                    Console.WriteLine(_cartRepository.GetCartByCartID(cartGroup.Key).UserID);
                     currentOrder.User = _userRepository.GetUserByUserID((_cartRepository.GetCartByCartID(cartGroup.Key).UserID));
                     currentOrder.IsDelivered = false;
                     foreach (var cartItem in cartGroup)
@@ -173,7 +187,8 @@ namespace Service
                     }
                     restauranOrders.Add(currentOrder);
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return new ServiceResult<IEnumerable<ResturantOrderModel>>("Orders not retreived")
                 {
@@ -186,6 +201,6 @@ namespace Service
                 Result = restauranOrders
             };
         }
-    } 
-    
+    }
+
 }

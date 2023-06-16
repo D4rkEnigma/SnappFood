@@ -12,6 +12,8 @@ namespace Domain.Contracts
         public void AddCartItem(CartItem cartItem);
         void EditCartItemByCartIdAndMenuItemID(string baseCartID, string baseMenuItemID, CartItem editedCartItem);
         List<CartItem> GetUndeliveredCartItemsByRestaurantID(string restaurantID);
-    
+        void MarkCartItemsAsDeliveredByCartID(string cartID);
+
+
     }
 }
