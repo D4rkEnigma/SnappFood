@@ -180,6 +180,7 @@ namespace Service
                     ResturantOrderModel currentOrder = new();
                     Console.WriteLine(_cartRepository.GetCartByCartID(cartGroup.Key).UserID);
                     currentOrder.User = _userRepository.GetUserByUserID((_cartRepository.GetCartByCartID(cartGroup.Key).UserID));
+                    currentOrder.cartID = cartGroup.Key;
                     currentOrder.IsDelivered = false;
                     foreach (var cartItem in cartGroup)
                     {
