@@ -1,12 +1,14 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
-import * as Yup from "yup";
+import { Yup } from "../../lib/yup";
 import { signupUser } from "../../data/signup-user";
 
 const UserSignupSchema = Yup.object().shape({
   firstName: Yup.string().required("نام الزامی است"),
   lastName: Yup.string().required("نام خانوادگی الزامی است"),
-  nationalCode: Yup.string().required("کد ملی الزامی است"),
+  nationalCode: Yup.string()
+    .required("کد ملی الزامی است")
+    .nationalCode("کد ملی وارد شده معتبر نیست."),
   address: Yup.string().required("آدرس الزامی است"),
   password: Yup.string()
     .required("رمز عبور الزامی است")
@@ -38,11 +40,7 @@ export const UserSignupForm = () => {
       <Form className="flex flex-col items-center gap-10 w-full">
         <div className="flex flex-col gap-8 w-full">
           <div className="flex flex-col gap-2">
-            <Input
-              name="firstName"
-              type="text"
-              placeholder="نام"
-            />
+            <Input name="firstName" type="text" placeholder="نام" />
             <ErrorMessage
               name="firstName"
               className="text-sm text-red-500"
@@ -50,11 +48,7 @@ export const UserSignupForm = () => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Input
-              name="lastName"
-              type="text"
-              placeholder="نام خانوادگی"
-            />
+            <Input name="lastName" type="text" placeholder="نام خانوادگی" />
             <ErrorMessage
               name="lastName"
               className="text-sm text-red-500"
@@ -62,11 +56,7 @@ export const UserSignupForm = () => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Input
-              name="nationalCode"
-              type="text"
-              placeholder="کد ملی"
-            />
+            <Input name="nationalCode" type="text" placeholder="کد ملی" />
             <ErrorMessage
               name="nationalCode"
               className="text-sm text-red-500"
@@ -74,11 +64,7 @@ export const UserSignupForm = () => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Input
-              name="address"
-              type="text"
-              placeholder="آدرس"
-            />
+            <Input name="address" type="text" placeholder="آدرس" />
             <ErrorMessage
               name="address"
               className="text-sm text-red-500"
@@ -86,11 +72,7 @@ export const UserSignupForm = () => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <Input
-              name="password"
-              type="password"
-              placeholder="رمز عبور"
-            />
+            <Input name="password" type="password" placeholder="رمز عبور" />
             <ErrorMessage
               name="password"
               className="text-sm text-red-500"

@@ -1,12 +1,34 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { addOrderToDelivered } from "../../data/add-order-to-delivered";
+import { useMutation, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
 
-export const OrderItem = () => {
+export const OrderItem = ({ order }) => {
+  const foodNames = order.orderList
+    .map((item) => item.menuItem.foodName)
+    .join(" + ");
   const [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
   }
-  
+
+  const queryClient = useQueryClient();
+  const deliverOrderMutation = useMutation(
+    ({ cartId }) => {
+      return addOrderToDelivered({ cartId });
+    },
+    {
+      onSuccess() {
+        toast.success("سفارش با موفقیت تحویل داده شد!", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          rtl: true,
+        });
+        queryClient.invalidateQueries(["restaurant-orders"]);
+      },
+    }
+  );
+
   return (
     <>
       <div
@@ -14,12 +36,10 @@ export const OrderItem = () => {
         onClick={() => setIsOpen(true)}
         className="rounded-lg border border-gray-100 shadow-md px-8 py-5 bg-white cursor-pointer"
       >
-        <p className="w-full two-line-ellipsis text-sm">
-          همبرگر ذغالی + قارچ سوخاری + پیتزا پنیر + دلستر لیمویی
-        </p>
+        <p className="w-full two-line-ellipsis text-sm">{foodNames}</p>
         <div className="border border-t-gray-300 my-4" />
 
-        <p className="text-sm font-medium text-left">279000 تومان</p>
+        <p className="text-sm font-medium text-left">{order.user.name}</p>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -55,20 +75,37 @@ export const OrderItem = () => {
                   </Dialog.Title>
                   <div className="flex flex-col gap-3 mt-8">
                     <div className="flex justify-between">
-                        <p className="flex-1">نام</p>
-                        <p>تعداد</p>
+                      <p className="flex-1">نام</p>
+                      <p>تعداد</p>
                     </div>
-                    {Array.from(Array(5)).map((_, i) => {
-                        return (
-                            <div key={i} className="flex gap-10 justify-between">
-                                <p className="flex-1 truncate">همبرگر ذغالی</p>
-                                <p className="pl-2">2</p>
-                            </div>
-                        )
+                    {order.orderList.map((item) => {
+                      return (
+                        <div
+                          key={item.menuItem.menuItemID}
+                          className="flex gap-10 justify-between"
+                        >
+                          <p className="flex-1 truncate">
+                            {item.menuItem.foodName}
+                          </p>
+                          <p className="pl-2">{item.count}</p>
+                        </div>
+                      );
                     })}
+                    <div className="flex flex-col gap-1 border border-gray-300 rounded-sm p-3 mt-4">
+                      <p>آدرس: {order.user.address}</p>
+                      <p>نام تحویل گیرنده: {order.user.name}</p>
+                    </div>
                   </div>
                   <div className="mt-6 flex justify-center">
-                    <button className="rounded-md bg-orange-600 px-6 py-2 text-white">تحویل شد</button>
+                    <button
+                      onClick={() => {
+                        deliverOrderMutation.mutate({ cartId: order.cartID });
+                        closeModal();
+                      }}
+                      className="rounded-md bg-orange-600 px-6 py-2 text-white"
+                    >
+                      تحویل شد
+                    </button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

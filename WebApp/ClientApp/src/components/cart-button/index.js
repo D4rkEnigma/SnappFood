@@ -16,7 +16,7 @@ export const CartButton = () => {
     <>
       <button
         onClick={() => toggleCart()}
-        className="bg-orange-600 rounded-md px-4 py-1"
+        className="bg-orange-600 rounded-md px-4 py-2"
       >
         <FiShoppingCart strokeWidth={1.5} color="white" size={24} />
       </button>

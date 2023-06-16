@@ -1,10 +1,12 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
-import * as Yup from "yup";
 import { loginUser } from "../../data/login-user";
+import { Yup } from "../../lib/yup";
 
 const UserLoginSchema = Yup.object().shape({
-  nationalCode: Yup.string().required("کد ملی الزامی است"),
+  nationalCode: Yup.string()
+    .required("کد ملی الزامی است")
+    .nationalCode("کد ملی وارد شده معتبر نیست."),
   password: Yup.string().required("رمز عبور الزامی است"),
 });
 
@@ -46,7 +48,7 @@ export const UserLoginForm = () => {
           type="submit"
           className="w-full h-12 text-white rounded-md px-6 text-lg bg-orange-600"
         >
-            ورود
+          ورود
         </button>
       </Form>
     </Formik>

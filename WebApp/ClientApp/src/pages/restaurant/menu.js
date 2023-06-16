@@ -4,6 +4,8 @@ import { useQuery } from "react-query";
 import { getRestaurantMenu } from "../../data/get-restaurant-menu";
 import { useAuth } from "../../context/auth-context";
 import { DateTime } from "luxon";
+import { FiChevronRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export const Menu = () => {
   const { user } = useAuth();
@@ -17,11 +19,17 @@ export const Menu = () => {
 
   return (
     <div className="min-h-full w-full max-w-5xl p-10 flex flex-col mx-auto">
-      <div className="flex justify-between items-stretch">
+      <div className="flex gap-4 items-stretch">
+        <Link
+          to="/"
+          className="flex items-center text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md"
+        >
+          <FiChevronRight strokeWidth={1.5} size={24} />
+        </Link>
         <NewFoodButton />
         <button
           onClick={() => logoutUser()}
-          className="text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md self-start"
+          className="text-lg text-orange-600 px-6 py-2 border border-orange-700 rounded-md mr-auto"
         >
           خروج
         </button>
@@ -44,7 +52,11 @@ export const Menu = () => {
               >
                 <p className="flex-1 truncate">{menuItem.foodName}</p>
                 <p className="flex-1 text-center">{menuItem.price} تومان</p>
-                <p className="flex-1 text-center">{DateTime.fromISO(menuItem.cookingTime).setLocale('fa').toLocaleString(DateTime.TIME_24_SIMPLE)}</p>
+                <p className="flex-1 text-center">
+                  {DateTime.fromISO(menuItem.cookingTime)
+                    .setLocale("fa")
+                    .toLocaleString(DateTime.TIME_24_SIMPLE)}
+                </p>
               </div>
             ))}
           </div>

@@ -1,7 +1,7 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { Input } from "../form/input";
-import * as Yup from "yup";
 import { signupRestaurant } from "../../data/signup-restaurant";
+import { Yup } from "../../lib/yup";
 
 const RestaurantSignupSchema = Yup.object().shape({
   restaurantName: Yup.string().required("نام الزامی است"),
