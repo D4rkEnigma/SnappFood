@@ -10,7 +10,7 @@ namespace Domain.Contracts
     public interface ICartRepository
     {
         public void AddCart(Cart cart);
-        public Cart GetUserCart(string nationalCode);
+        
         Cart GetCartByCartID(string cartID);
     }
 }

@@ -17,12 +17,14 @@ namespace Service
         private readonly IMenuItemRepository _menuItemRepository;
         private readonly ICartItemRepository _cartItemRepository;
         private readonly IUserRepository _userRepository;
-        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,IUserRepository userRepository) 
+        private readonly ICartRepository _cartRepository;
+        public ResturantService(IRestaurantRepository resturantRepository,IMenuItemRepository menuItemRepository,ICartItemRepository cartItemrepository,IUserRepository userRepository,ICartRepository cartRepository) 
         {
             _resturantRepository = resturantRepository;
             _menuItemRepository = menuItemRepository;
             _cartItemRepository = cartItemrepository;
             _userRepository = userRepository;
+            _cartRepository = cartRepository;
         }
         public ServiceResult<IEnumerable<Restaurant>> GetRestueantList()
         {
@@ -148,14 +150,23 @@ namespace Service
             }
         }
 
-        public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
-        {
-            var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
-            foreach (var item in resturantOrders)
-            {
-                var userCart = item.CartID
-            }
-        }
+        //public ServiceResult<IEnumerable<ResturantOredrModel>> GetResturantOrders(string resturantID)
+        //{
+            
+        //    var resturantOrderModelList = new List<ResturantOredrModel>();
+        //    var resturantOrders = _cartItemRepository.GetUndeliveredCartItemsByRestaurantID(resturantID);
+        //    foreach (var item in resturantOrders)
+        //    {
+        //        var userCart = _cartRepository.GetCartByCartID(item.CartID);
+        //        var user = _userRepository.GetUserByUserID(userCart.UserID);
+        //        var usergroupedorder = getusrorderbycartidanduserid(user.UserID, userCart.CartID);
+        //        resturantOrderModelList.Add(new ResturantOredrModel()
+        //        {
+        //            OrderList = 
+
+        //        }) ;
+        //    }
+        //}
     } 
     
 }
